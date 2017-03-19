@@ -7,17 +7,14 @@
 //
 
 import SpriteKit
-#if os(watchOS)
-    import WatchKit
-    // <rdar://problem/26756207> SKColor typealias does not seem to be exposed on watchOS SpriteKit
-    typealias SKColor = UIColor
-#endif
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
-    fileprivate var label : SKLabelNode?
-    fileprivate var spinnyNode : SKShapeNode?
+    fileprivate var targetNode : SKSpriteNode?
+    fileprivate var currentTarget : SKSpriteNode?
+    fileprivate var botNode : SKSpriteNode?
+    fileprivate var targets = Set<SKSpriteNode>()
 
     
     class func newGameScene() -> GameScene {
@@ -30,62 +27,81 @@ class GameScene: SKScene {
         // Set the scale mode to scale to fit the window
         scene.scaleMode = .aspectFill
         
+        scene.physicsWorld.gravity = CGVector.zero
+        scene.physicsWorld.contactDelegate = scene
+        
         return scene
     }
     
     func setUpScene() {
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 4.0
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(M_PI), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-            
-            #if os(watchOS)
-                // For watch we just periodically create one of these and let it spin
-                // For other platforms we let user touch/mouse events create these
-                spinnyNode.position = CGPoint(x: 0.0, y: 0.0)
-                spinnyNode.strokeColor = SKColor.red
-                self.run(SKAction.repeatForever(SKAction.sequence([SKAction.wait(forDuration: 2.0),
-                                                                   SKAction.run({
-                                                                       let n = spinnyNode.copy() as! SKShapeNode
-                                                                       self.addChild(n)
-                                                                   })])))
-            #endif
-        }
+        self.botNode = SKSpriteNode.init(color: .green, size: CGSize.init(width: 16, height: 16))
+        self.botNode?.name = "bot"
+        self.botNode?.physicsBody = SKPhysicsBody.init(circleOfRadius: 8)
+        self.botNode?.physicsBody?.contactTestBitMask = (self.botNode?.physicsBody?.collisionBitMask)!
+        self.addChild(self.botNode!)
     }
     
-    #if os(watchOS)
-    override func sceneDidLoad() {
-        self.setUpScene()
-    }
-    #else
     override func didMove(to view: SKView) {
         self.setUpScene()
     }
-    #endif
 
-    func makeSpinny(at pos: CGPoint, color: SKColor) {
-        if let spinny = self.spinnyNode?.copy() as! SKShapeNode? {
-            spinny.position = pos
-            spinny.strokeColor = color
-            self.addChild(spinny)
+    func addTarget(at pos: CGPoint) {
+        print("Adding target")
+        let targetNode = SKSpriteNode.init(color: .red, size: CGSize.init(width: 32, height: 32))
+        targetNode.name = "target"
+        targetNode.position = pos
+        targetNode.physicsBody = SKPhysicsBody.init(circleOfRadius: 16)
+        self.addChild(targetNode)
+        self.targets.insert(targetNode)
+        self.selectTarget()
+    }
+    
+    func selectTarget() {
+        let myPos = self.botNode?.position
+        var closestDistance = CGFloat.infinity
+        var target = self.targets.first
+        for candidate in self.targets {
+            let distance = CGPointDistance(from: myPos!, to: candidate.position)
+            if distance < closestDistance {
+                target = candidate
+                closestDistance = distance
+            }
+        }
+        let pos = target?.position
+        
+        let v = CGVector.init(dx: (pos?.x)! - (self.botNode?.position.x)!, dy: (pos?.y)! - (self.botNode?.position.y)!)
+        let vn = CGVectorNormalize(v: v)
+        let speed = CGFloat.init(200.0)
+        self.botNode?.physicsBody?.velocity = CGVector.init(dx: vn.dx * speed, dy: vn.dy * speed)
+        
+        self.currentTarget = target
+    }
+    
+    func removeTarget(target: SKSpriteNode) {
+        self.targets.remove(target)
+        self.currentTarget = nil
+        if self.targets.isEmpty == false {
+            self.selectTarget()
         }
     }
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        if contact.bodyA.node?.name == "target" {
+            print("removing A")
+            contact.bodyA.node?.removeFromParent()
+            self.removeTarget(target: contact.bodyA.node as! SKSpriteNode)
+        }
+        if contact.bodyB.node?.name == "target" {
+            contact.bodyB.node?.removeFromParent()
+            self.removeTarget(target: contact.bodyB.node as! SKSpriteNode)
+            print("removing B")
+        }
     }
 }
 
@@ -94,34 +110,10 @@ class GameScene: SKScene {
 extension GameScene {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        
         for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.green)
+            self.addTarget(at: t.location(in: self))
         }
     }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.blue)
-        }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.red)
-        }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.red)
-        }
-    }
-    
-   
 }
 #endif
 
@@ -130,20 +122,24 @@ extension GameScene {
 extension GameScene {
 
     override func mouseDown(with event: NSEvent) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        self.makeSpinny(at: event.location(in: self), color: SKColor.green)
+        self.addTarget(at: event.location(in: self))
     }
-    
-    override func mouseDragged(with event: NSEvent) {
-        self.makeSpinny(at: event.location(in: self), color: SKColor.blue)
-    }
-    
-    override func mouseUp(with event: NSEvent) {
-        self.makeSpinny(at: event.location(in: self), color: SKColor.red)
-    }
-
 }
 #endif
 
+func CGPointDistanceSquared(from: CGPoint, to: CGPoint) -> CGFloat {
+    return (from.x - to.x) * (from.x - to.x) + (from.y - to.y) * (from.y - to.y)
+}
+
+func CGPointDistance(from: CGPoint, to: CGPoint) -> CGFloat {
+    return sqrt(CGPointDistanceSquared(from: from, to: to))
+}
+
+func CGVectorLength(v: CGVector) -> CGFloat {
+    return sqrt(v.dx*v.dx + v.dy*v.dy)
+}
+
+func CGVectorNormalize(v: CGVector) -> CGVector {
+    let len = CGVectorLength(v: v)
+    return CGVector.init(dx: v.dx / len, dy: v.dy / len)
+}
