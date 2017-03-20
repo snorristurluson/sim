@@ -13,7 +13,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     fileprivate var targetNode : SKSpriteNode?
     fileprivate var currentTarget : SKSpriteNode?
-    fileprivate var botNode : SKSpriteNode?
+    fileprivate var bots : Set<Bot> = []
     fileprivate var targets = Set<SKSpriteNode>()
 
     
@@ -35,12 +35,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setUpScene() {
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+
+        let bot1 = Bot.init(pos: CGPoint.init(x: -100, y: 0 ))
+        bot1.addToScene(scene: self)
+        self.bots.insert(bot1)
         
-        self.botNode = SKSpriteNode.init(color: .green, size: CGSize.init(width: 16, height: 16))
-        self.botNode?.name = "bot"
-        self.botNode?.physicsBody = SKPhysicsBody.init(circleOfRadius: 8)
-        self.botNode?.physicsBody?.contactTestBitMask = (self.botNode?.physicsBody?.collisionBitMask)!
-        self.addChild(self.botNode!)
+        let bot2 = Bot.init(pos: CGPoint.init(x: 100, y: 0 ))
+        bot2.addToScene(scene: self)
+        self.bots.insert(bot2)
     }
     
     override func didMove(to view: SKView) {
@@ -48,42 +50,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func addTarget(at pos: CGPoint) {
-        print("Adding target")
+        print("Adding target at", pos)
         let targetNode = SKSpriteNode.init(color: .red, size: CGSize.init(width: 32, height: 32))
         targetNode.name = "target"
         targetNode.position = pos
         targetNode.physicsBody = SKPhysicsBody.init(circleOfRadius: 16)
         self.addChild(targetNode)
         self.targets.insert(targetNode)
-        self.selectTarget()
-    }
-    
-    func selectTarget() {
-        let myPos = self.botNode?.position
-        var closestDistance = CGFloat.infinity
-        var target = self.targets.first
-        for candidate in self.targets {
-            let distance = CGPointDistance(from: myPos!, to: candidate.position)
-            if distance < closestDistance {
-                target = candidate
-                closestDistance = distance
-            }
+        for bot in self.bots {
+            bot.selectTarget(targets: self.targets)
         }
-        let pos = target?.position
-        
-        let v = CGVector.init(dx: (pos?.x)! - (self.botNode?.position.x)!, dy: (pos?.y)! - (self.botNode?.position.y)!)
-        let vn = CGVectorNormalize(v: v)
-        let speed = CGFloat.init(200.0)
-        self.botNode?.physicsBody?.velocity = CGVector.init(dx: vn.dx * speed, dy: vn.dy * speed)
-        
-        self.currentTarget = target
     }
     
     func removeTarget(target: SKSpriteNode) {
         self.targets.remove(target)
         self.currentTarget = nil
         if self.targets.isEmpty == false {
-            self.selectTarget()
+            for bot in self.bots {
+                bot.selectTarget(targets: self.targets)
+            }
         }
     }
     

@@ -29,6 +29,12 @@
 		020F4F941E7AD938007D723B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020F4F5C1E7AD938007D723B /* Assets.xcassets */; };
 		020F4F951E7AD938007D723B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020F4F5C1E7AD938007D723B /* Assets.xcassets */; };
 		020F4F961E7AD938007D723B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020F4F5C1E7AD938007D723B /* Assets.xcassets */; };
+		02B3956A1E7E8D5700E6476F /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395691E7E8D5700E6476F /* Bot.swift */; };
+		02B3956B1E7E8D5700E6476F /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395691E7E8D5700E6476F /* Bot.swift */; };
+		02B3956C1E7E8D5700E6476F /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395691E7E8D5700E6476F /* Bot.swift */; };
+		02B3956E1E7E8E1700E6476F /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */; };
+		02B3956F1E7E8E1700E6476F /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */; };
+		02B395701E7E8E1700E6476F /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +58,8 @@
 		020F4F851E7AD938007D723B /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		020F4F881E7AD938007D723B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		020F4F8A1E7AD938007D723B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02B395691E7E8D5700E6476F /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
+		02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +105,8 @@
 				020F4F5A1E7AD938007D723B /* GameScene.sks */,
 				020F4F5B1E7AD938007D723B /* GameScene.swift */,
 				020F4F5C1E7AD938007D723B /* Assets.xcassets */,
+				02B395691E7E8D5700E6476F /* Bot.swift */,
+				02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -289,6 +299,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				020F4F911E7AD938007D723B /* GameScene.swift in Sources */,
+				02B3956E1E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
+				02B3956A1E7E8D5700E6476F /* Bot.swift in Sources */,
 				020F4F671E7AD938007D723B /* GameViewController.swift in Sources */,
 				020F4F651E7AD938007D723B /* AppDelegate.swift in Sources */,
 			);
@@ -299,6 +311,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				020F4F921E7AD938007D723B /* GameScene.swift in Sources */,
+				02B3956F1E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
+				02B3956B1E7E8D5700E6476F /* Bot.swift in Sources */,
 				020F4F781E7AD938007D723B /* GameViewController.swift in Sources */,
 				020F4F761E7AD938007D723B /* AppDelegate.swift in Sources */,
 			);
@@ -309,6 +323,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				020F4F931E7AD938007D723B /* GameScene.swift in Sources */,
+				02B395701E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
+				02B3956C1E7E8D5700E6476F /* Bot.swift in Sources */,
 				020F4F861E7AD938007D723B /* GameViewController.swift in Sources */,
 				020F4F841E7AD938007D723B /* AppDelegate.swift in Sources */,
 			);
@@ -557,6 +573,7 @@
 				020F4F9B1E7AD938007D723B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		020F4F9C1E7AD938007D723B /* Build configuration list for PBXNativeTarget "tvOS" */ = {
 			isa = XCConfigurationList;
@@ -565,6 +582,7 @@
 				020F4F9E1E7AD938007D723B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		020F4F9F1E7AD938007D723B /* Build configuration list for PBXNativeTarget "macOS" */ = {
 			isa = XCConfigurationList;
@@ -573,6 +591,7 @@
 				020F4FA11E7AD938007D723B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
