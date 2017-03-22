@@ -35,6 +35,9 @@
 		02B3956E1E7E8E1700E6476F /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */; };
 		02B3956F1E7E8E1700E6476F /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */; };
 		02B395701E7E8E1700E6476F /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */; };
+		02B395721E82792C00E6476F /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395711E82792C00E6476F /* Rock.swift */; };
+		02B395731E82792C00E6476F /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395711E82792C00E6476F /* Rock.swift */; };
+		02B395741E82792C00E6476F /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395711E82792C00E6476F /* Rock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +63,7 @@
 		020F4F8A1E7AD938007D723B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02B395691E7E8D5700E6476F /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
 		02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
+		02B395711E82792C00E6476F /* Rock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,7 @@
 				020F4F5C1E7AD938007D723B /* Assets.xcassets */,
 				02B395691E7E8D5700E6476F /* Bot.swift */,
 				02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */,
+				02B395711E82792C00E6476F /* Rock.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -298,6 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B395721E82792C00E6476F /* Rock.swift in Sources */,
 				020F4F911E7AD938007D723B /* GameScene.swift in Sources */,
 				02B3956E1E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
 				02B3956A1E7E8D5700E6476F /* Bot.swift in Sources */,
@@ -310,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B395731E82792C00E6476F /* Rock.swift in Sources */,
 				020F4F921E7AD938007D723B /* GameScene.swift in Sources */,
 				02B3956F1E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
 				02B3956B1E7E8D5700E6476F /* Bot.swift in Sources */,
@@ -322,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02B395741E82792C00E6476F /* Rock.swift in Sources */,
 				020F4F931E7AD938007D723B /* GameScene.swift in Sources */,
 				02B395701E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
 				02B3956C1E7E8D5700E6476F /* Bot.swift in Sources */,

@@ -7,14 +7,15 @@
 //
 
 import SpriteKit
+import GameKit
+
+var world: GameScene? = nil
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
-    fileprivate var targetNode : SKSpriteNode?
-    fileprivate var currentTarget : SKSpriteNode?
     fileprivate var bots : Set<Bot> = []
-    fileprivate var targets = Set<SKSpriteNode>()
+    var targets = Set<GKEntity>()
 
     
     class func newGameScene() -> GameScene {
@@ -37,39 +38,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
 
         let bot1 = Bot.init(pos: CGPoint.init(x: -100, y: 0 ))
-        bot1.addToScene(scene: self)
+        self.addEntity(entity: bot1)
         self.bots.insert(bot1)
         
         let bot2 = Bot.init(pos: CGPoint.init(x: 100, y: 0 ))
-        bot2.addToScene(scene: self)
+        self.addEntity(entity: bot2)
         self.bots.insert(bot2)
     }
     
     override func didMove(to view: SKView) {
+        world = self
         self.setUpScene()
     }
 
-    func addTarget(at pos: CGPoint) {
-        print("Adding target at", pos)
-        let targetNode = SKSpriteNode.init(color: .red, size: CGSize.init(width: 32, height: 32))
-        targetNode.name = "target"
-        targetNode.position = pos
-        targetNode.physicsBody = SKPhysicsBody.init(circleOfRadius: 16)
-        self.addChild(targetNode)
-        self.targets.insert(targetNode)
-        for bot in self.bots {
-            bot.selectTarget(targets: self.targets)
+    func addEntity(entity: GKEntity) {
+        if let spriteComp = entity.component(ofType: SpriteComponent.self) {
+            self.addChild(spriteComp.spriteNode)
         }
     }
     
-    func removeTarget(target: SKSpriteNode) {
-        self.targets.remove(target)
-        self.currentTarget = nil
-        if self.targets.isEmpty == false {
-            for bot in self.bots {
-                bot.selectTarget(targets: self.targets)
-            }
+    func addTarget(at: CGPoint) {
+        print("Adding target at", at)
+        let rock = Rock(pos: at)
+        self.addEntity(entity: rock)
+        self.targets.insert(rock)
+        for bot in self.bots {
+            bot.selectTarget()
         }
+    }
+    
+    func removeTarget(target: GKEntity) {
+        if let spriteComp = target.component(ofType: SpriteComponent.self) {
+            spriteComp.spriteNode.removeFromParent()
+        }
+        self.targets.remove(target)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -77,15 +79,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.node?.name == "target" {
-            print("removing A")
-            contact.bodyA.node?.removeFromParent()
-            self.removeTarget(target: contact.bodyA.node as! SKSpriteNode)
+        var bot: Bot? = nil
+        var other: GKEntity? = nil
+        if contact.bodyA.node?.name == "bot" {
+            bot = contact.bodyA.node?.entity as? Bot
+            other = contact.bodyB.node?.entity
         }
-        if contact.bodyB.node?.name == "target" {
-            contact.bodyB.node?.removeFromParent()
-            self.removeTarget(target: contact.bodyB.node as! SKSpriteNode)
-            print("removing B")
+        else if contact.bodyB.node?.name == "bot" {
+            bot = contact.bodyB.node?.entity as? Bot
+            other = contact.bodyA.node?.entity
+        }
+        if bot != nil {
+            bot?.HandleContact(other: other)
         }
     }
 }

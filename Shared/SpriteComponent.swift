@@ -13,12 +13,14 @@ import SpriteKit
 class SpriteComponent : GKComponent {
     let spriteNode : SKSpriteNode
     
-    init(color: NSColor, size: CGSize) {
+    init(name: String, color: NSColor, size: CGSize) {
         self.spriteNode = SKSpriteNode.init(color: color, size: size)
-        self.spriteNode.name = "bot"
-        let physicsBody = SKPhysicsBody.init(circleOfRadius: 8)
+        self.spriteNode.name = name
+        let radius = size.width / 2
+        let physicsBody = SKPhysicsBody.init(circleOfRadius: radius)
         self.spriteNode.physicsBody = physicsBody
         physicsBody.contactTestBitMask = physicsBody.collisionBitMask
+
         super.init()
     }
     

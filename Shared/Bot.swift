@@ -13,18 +13,14 @@ import SpriteKit
 class Bot : GKEntity {
     init(pos: CGPoint) {
         super.init()
-        let comp = SpriteComponent(color: .green, size: CGSize.init(width: 16, height: 16))
+        let comp = SpriteComponent(name: "bot", color: .green, size: CGSize.init(width: 16, height: 16))
         comp.spriteNode.position = pos
         addComponent(comp)
+        addComponent(GKSKNodeComponent(node: comp.spriteNode))
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func addToScene(scene: SKScene) {
-        let comp = component(ofType: SpriteComponent.self)
-        scene.addChild((comp?.spriteNode)!)
     }
     
     func getPosition()-> CGPoint {
@@ -42,19 +38,33 @@ class Bot : GKEntity {
         comp?.spriteNode.physicsBody?.velocity = CGVector.init(dx: vn.dx * speed, dy: vn.dy * speed)
     }
 
-    func selectTarget(targets: Set<SKSpriteNode>) {
+    func selectTarget() {
         let myPos = self.getPosition()
         var closestDistance = CGFloat.infinity
-        var target = targets.first
-        for candidate in targets {
-            let distance = CGPointDistance(from: myPos, to: candidate.position)
-            if distance < closestDistance {
-                target = candidate
-                closestDistance = distance
+        var targetPosition = CGPoint.init(x: 0, y: 0)
+        for candidate in (world?.targets)! {
+            let spriteComp = candidate.component(ofType: SpriteComponent.self)
+            if spriteComp != nil {
+                let candidatePosition = spriteComp?.spriteNode.position
+                let distance = CGPointDistance(from: myPos, to: candidatePosition!)
+                if distance < closestDistance {
+                    targetPosition = candidatePosition!
+                    closestDistance = distance
+                }
             }
         }
-        let pos = (target?.position)!
-        self.goTo(pos: pos)
+        self.goTo(pos: targetPosition)
+    }
+    
+    func HandleContact(other: GKEntity?) {
+        if other == nil {
+            return
+        }
+        
+        if (other?.isKind(of: Rock.self))! {
+            world?.removeTarget(target: other!)
+            self.selectTarget()
+        }
     }
     
 }
