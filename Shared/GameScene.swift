@@ -10,6 +10,7 @@ import SpriteKit
 import GameKit
 
 var world: GameScene? = nil
+var random = GKARC4RandomSource.init()
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -36,6 +37,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setUpScene() {
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+
+        for _ in 1...100 {
+            let x = Double(random.nextUniform() * 600 - 300)
+            let y = Double(random.nextUniform() * 600 - 300)
+            let pos = CGPoint.init(x: x, y: y)
+            self.addTarget(at: pos)
+        }
 
         let bot1 = Bot.init(pos: CGPoint.init(x: -100, y: 0 ))
         self.addEntity(entity: bot1)
@@ -76,6 +84,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        for bot in self.bots {
+            let agent = bot.component(ofType: GKAgent2D.self)
+            if (agent != nil) {
+                agent?.update(deltaTime: 0.01666)
+            }
+        }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
