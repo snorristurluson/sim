@@ -20,6 +20,7 @@ class SpriteComponent : GKComponent {
         let physicsBody = SKPhysicsBody.init(circleOfRadius: radius)
         self.spriteNode.physicsBody = physicsBody
         physicsBody.contactTestBitMask = physicsBody.collisionBitMask
+        physicsBody.collisionBitMask = 0
 
         super.init()
     }

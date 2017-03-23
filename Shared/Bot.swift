@@ -18,19 +18,11 @@ class Bot : GKEntity {
         let comp = SpriteComponent(name: "bot", color: .green, size: CGSize.init(width: 16, height: 16))
         comp.spriteNode.position = pos
         addComponent(comp)
-        
-        let nodeComp = GKSKNodeComponent(node: comp.spriteNode)
-        addComponent(nodeComp)
-        
-        let agent = GKAgent2D()
-        agent.maxSpeed = 300
-        agent.maxAcceleration = 100
-        agent.mass = 1
-        agent.radius = 1
-        agent.delegate = nodeComp
-        addComponent(agent)
-        
-        self.wander()
+
+        addComponent(GKSKNodeComponent(node: comp.spriteNode))
+
+        let movement = MovementComponent(body: comp.spriteNode)
+        addComponent(movement)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -48,13 +40,8 @@ class Bot : GKEntity {
     }
     
     func goTo(pos: CGPoint) {
-        let agent = self.component(ofType: GKAgent2D.self)
-        let myPos = self.getPosition()
-        
-        let start = float2.init(x: Float(myPos.x), y: Float(myPos.y))
-        let end = float2.init(x: Float(pos.x), y: Float(pos.y))
-        let path = GKPath.init(points: [start, end], radius: 0.1, cyclical: false)
-        agent?.behavior = GKBehavior.init(goals: [GKGoal.init(toStayOn: path, maxPredictionTime: 10)])
+        let movement = self.component(ofType: MovementComponent.self)
+        movement?.setTarget(pos: pos)
     }
 
     func selectTarget() {
