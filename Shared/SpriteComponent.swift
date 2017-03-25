@@ -13,7 +13,7 @@ import SpriteKit
 class SpriteComponent : GKComponent {
     let spriteNode : SKSpriteNode
     
-    init(name: String, color: NSColor, size: CGSize) {
+    init(name: String, color: SKColor, size: CGSize) {
         self.spriteNode = SKSpriteNode.init(color: color, size: size)
         self.spriteNode.name = name
         let radius = size.width / 2
