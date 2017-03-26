@@ -17,20 +17,27 @@ class FindingRockState : GKState {
     }
     
     override func didEnter(from previousState: GKState?) {
-        print("Entering FindingRockState")
-        let rock = bot.findClosesRock()
+        print(self.bot.name, "Entering FindingRockState")
+        let rock = bot.findClosest(type: Rock.self) as? Rock
         if rock != nil {
-            self.bot.setTargetRock(rock: rock!)
+            self.bot.setTarget(entity: rock!)
             self.bot.goTo(pos: (rock?.getPosition())!)
         }
     }
     
     override func update(deltaTime seconds: TimeInterval) {
+        if self.bot.target == nil {
+            print("Target lost")
+            self.bot.stateMachine.enter(FindingRockState.self)
+        }
+        else if self.bot.contact == self.bot.target {
+            self.bot.stateMachine.enter(ExtractingFromRockState.self)
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         switch stateClass {
-        case is ExtractingFromRockState.Type:
+        case is ExtractingFromRockState.Type, is FindingRockState.Type:
             return true
         default:
             return false

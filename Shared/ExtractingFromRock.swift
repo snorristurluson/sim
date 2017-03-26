@@ -18,7 +18,7 @@ class ExtractingFromRockState : GKState {
     }
     
     override func didEnter(from previousState: GKState?) {
-        print("Entering ExtractingFromRockState")
+        print(self.bot.name, "Entering ExtractingFromRockState")
         self.time = 0
     }
     
@@ -26,23 +26,37 @@ class ExtractingFromRockState : GKState {
         self.time += seconds
         if self.time > 1.0 {
             print("Taking iron from rock")
-            let rock = self.bot.targetRock
-            if (rock?.takePiece())! {
-                bot.addResource(type: "iron", quantity: 1)
-                if (rock?.piecesLeft)! > 0 {
-                    self.stateMachine?.enter(ExtractingFromRockState.self)
+            let rock = self.bot.target as? Rock
+            if rock != nil {
+                if (rock?.takePiece())! {
+                    bot.addResource(Resource.init(type: "iron", quantity: 1))
+                    if bot.isCargoFull() {
+                        self.stateMachine?.enter(MovingToStorageState.self)
+                    }
+                    else if (rock?.piecesLeft)! > 0 {
+                        self.stateMachine?.enter(ExtractingFromRockState.self)
+                    }
+                    else {
+                        world?.removeTarget(target: rock!)
+                        self.stateMachine?.enter(FindingRockState.self)
+                    }
                 }
                 else {
+                    print("Couldn't take a piece from the rock")
                     world?.removeTarget(target: rock!)
                     self.stateMachine?.enter(FindingRockState.self)
                 }
+            }
+            else {
+                print("Target rock lost")
+                self.stateMachine?.enter(FindingRockState.self)
             }
         }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         switch stateClass {
-        case is FindingRockState.Type, is ExtractingFromRockState.Type:
+        case is FindingRockState.Type, is ExtractingFromRockState.Type, is MovingToStorageState.Type:
             return true
         default:
             return false

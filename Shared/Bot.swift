@@ -12,12 +12,19 @@ import SpriteKit
 
 class Bot : GKEntity {
     fileprivate var targetSprite: SKSpriteNode?
-    var targetRock: Rock?
+    var name: String
+    weak var target: GKEntity?
+    weak var contact: GKEntity?
+    
     var stateMachine: GKStateMachine!
     
-    init(pos: CGPoint) {
-        super.init()
+    var cargo = [Resource]()
+    
+    init(name: String, pos: CGPoint) {
+        self.name = name
         
+        super.init()
+
         let comp = SpriteComponent(name: "bot", color: .green, size: CGSize.init(width: 16, height: 16))
         comp.spriteNode.position = pos
         addComponent(comp)
@@ -29,7 +36,8 @@ class Bot : GKEntity {
         
         stateMachine = GKStateMachine( states: [
             FindingRockState(bot: self),
-            ExtractingFromRockState(bot: self)
+            ExtractingFromRockState(bot: self),
+            MovingToStorageState(bot: self)
         ])
         
         stateMachine.enter(FindingRockState.self)
@@ -39,11 +47,6 @@ class Bot : GKEntity {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func wander() {
-        let agent = component(ofType: GKAgent2D.self)
-        agent?.behavior = GKBehavior.init(goals: [GKGoal.init(toWander: 100)], andWeights: [100])
-    }
-
     func getPosition()-> CGPoint {
         let comp = component(ofType: SpriteComponent.self)
         return (comp?.spriteNode.position)!
@@ -54,54 +57,66 @@ class Bot : GKEntity {
         movement?.setTarget(pos: pos)
     }
 
-    func findClosesRock() -> Rock? {
+    func findClosest(type: AnyClass) -> GKEntity? {
         let myPos = self.getPosition()
         var closestDistance = CGFloat.infinity
-        var targetRock: Rock?
+        var target: GKEntity?
         for candidate in (world?.targets)! {
-            let rock = candidate as? Rock
-            if rock != nil {
+            if candidate.isKind(of: type) {
                 let spriteComp = candidate.component(ofType: SpriteComponent.self)
                 if spriteComp != nil {
                     let candidatePosition = spriteComp?.spriteNode.position
                     let distance = CGPointDistance(from: myPos, to: candidatePosition!)
                     if distance < closestDistance {
                         closestDistance = distance
-                        targetRock = rock
+                        target = candidate
                     }
                 }
             }
         }
         
-        return targetRock
+        return target
     }
     
-    func setTargetRock(rock: Rock) {
-        self.targetRock = rock
-        let targetPosition = rock.getPosition()
-        if let target = self.targetSprite {
-            target.removeFromParent()
+    func setTarget(entity: GKEntity) {
+        self.target = entity
+        let spriteComp = entity.component(ofType: SpriteComponent.self)
+        let targetPosition = spriteComp?.spriteNode.position
+        if let currentTargetSprite = self.targetSprite {
+            currentTargetSprite.removeFromParent()
         }
 
         self.targetSprite = SKSpriteNode.init(color: .yellow, size: CGSize.init(width: 8, height: 8))
-        self.targetSprite?.position = targetPosition
+        self.targetSprite?.position = targetPosition!
         world?.addChild(self.targetSprite!)
     }
     
-    func addResource(type: String, quantity: Int) {
-        print("Bot collected", quantity, type)
+    func addResource(_ resource: Resource) {
+        print("Bot collected", resource.quantity, resource.type)
+        self.cargo.append(resource)
+    }
+    
+    func moveCargoToStorage(_ storage: Storage) {
+        var remainingCargo = [Resource]()
+        for resource in self.cargo {
+            let leftover = storage.addResource(resource)
+            if leftover > 0 {
+                remainingCargo.append(Resource.init(type: resource.type, quantity: leftover))
+            }
+        }
+        self.cargo = remainingCargo
+    }
+    
+    func isCargoFull() -> Bool {
+        print("Cargo contains", self.cargo.count, "items")
+        if self.cargo.count >= 3 {
+            return true
+        }
+        return false
     }
     
     func HandleContact(other: GKEntity?) {
-        if other == nil {
-            return
-        }
-        
-        if (other?.isKind(of: Rock.self))! {
-            if other == self.targetRock {
-                self.stateMachine.enter(ExtractingFromRockState.self)
-            }
-        }
+        self.contact = other
     }
     
 }

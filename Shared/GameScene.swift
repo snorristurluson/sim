@@ -39,19 +39,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
 
         for _ in 1...100 {
-            let x = Double(random.nextUniform() * 600 - 300)
-            let y = Double(random.nextUniform() * 600 - 300)
+            let x = Double(random.nextUniform() * 1200 - 600)
+            let y = Double(random.nextUniform() * 900 - 450)
             let pos = CGPoint.init(x: x, y: y)
             self.addTarget(at: pos)
         }
 
-        let bot1 = Bot.init(pos: CGPoint.init(x: -100, y: 0 ))
+        let bot1 = Bot.init(name: "bot1", pos: CGPoint.init(x: -100, y: 0 ))
         self.addEntity(entity: bot1)
         self.bots.insert(bot1)
         
-        let bot2 = Bot.init(pos: CGPoint.init(x: 100, y: 0 ))
+        let bot2 = Bot.init(name: "bot2", pos: CGPoint.init(x: 100, y: 0 ))
         self.addEntity(entity: bot2)
         self.bots.insert(bot2)
+        
+        let storage = Storage.init(pos: CGPoint(x: 0, y: -100))
+        self.addEntity(entity: storage)
     }
     
     override func didMove(to view: SKView) {
@@ -63,13 +66,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let spriteComp = entity.component(ofType: SpriteComponent.self) {
             self.addChild(spriteComp.spriteNode)
         }
+        self.targets.insert(entity)
     }
     
     func addTarget(at: CGPoint) {
         print("Adding target at", at)
         let rock = Rock(pos: at)
         self.addEntity(entity: rock)
-        self.targets.insert(rock)
     }
     
     func removeTarget(target: GKEntity) {
