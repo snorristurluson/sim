@@ -29,6 +29,12 @@
 		020F4F941E7AD938007D723B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020F4F5C1E7AD938007D723B /* Assets.xcassets */; };
 		020F4F951E7AD938007D723B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020F4F5C1E7AD938007D723B /* Assets.xcassets */; };
 		020F4F961E7AD938007D723B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 020F4F5C1E7AD938007D723B /* Assets.xcassets */; };
+		02630CC41E86ED2000D88F68 /* FindingRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02630CC31E86ED2000D88F68 /* FindingRock.swift */; };
+		02630CC51E86ED2000D88F68 /* FindingRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02630CC31E86ED2000D88F68 /* FindingRock.swift */; };
+		02630CC61E86ED2000D88F68 /* FindingRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02630CC31E86ED2000D88F68 /* FindingRock.swift */; };
+		02630CC81E86F13800D88F68 /* ExtractingFromRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02630CC71E86F13800D88F68 /* ExtractingFromRock.swift */; };
+		02630CC91E86F13800D88F68 /* ExtractingFromRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02630CC71E86F13800D88F68 /* ExtractingFromRock.swift */; };
+		02630CCA1E86F13800D88F68 /* ExtractingFromRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02630CC71E86F13800D88F68 /* ExtractingFromRock.swift */; };
 		02B3956A1E7E8D5700E6476F /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395691E7E8D5700E6476F /* Bot.swift */; };
 		02B3956B1E7E8D5700E6476F /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395691E7E8D5700E6476F /* Bot.swift */; };
 		02B3956C1E7E8D5700E6476F /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395691E7E8D5700E6476F /* Bot.swift */; };
@@ -64,6 +70,8 @@
 		020F4F851E7AD938007D723B /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		020F4F881E7AD938007D723B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		020F4F8A1E7AD938007D723B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		02630CC31E86ED2000D88F68 /* FindingRock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindingRock.swift; sourceTree = "<group>"; };
+		02630CC71E86F13800D88F68 /* ExtractingFromRock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractingFromRock.swift; sourceTree = "<group>"; };
 		02B395691E7E8D5700E6476F /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
 		02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		02B395711E82792C00E6476F /* Rock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
@@ -109,6 +117,7 @@
 		020F4F581E7AD938007D723B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				02630CC21E86EC6900D88F68 /* BotStates */,
 				020F4F591E7AD938007D723B /* Actions.sks */,
 				020F4F5A1E7AD938007D723B /* GameScene.sks */,
 				020F4F5B1E7AD938007D723B /* GameScene.swift */,
@@ -163,6 +172,15 @@
 				020F4F8A1E7AD938007D723B /* Info.plist */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		02630CC21E86EC6900D88F68 /* BotStates */ = {
+			isa = PBXGroup;
+			children = (
+				02630CC31E86ED2000D88F68 /* FindingRock.swift */,
+				02630CC71E86F13800D88F68 /* ExtractingFromRock.swift */,
+			);
+			name = BotStates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +328,8 @@
 			files = (
 				02B395721E82792C00E6476F /* Rock.swift in Sources */,
 				02B395761E83CFF600E6476F /* MovementComponent.swift in Sources */,
+				02630CC81E86F13800D88F68 /* ExtractingFromRock.swift in Sources */,
+				02630CC41E86ED2000D88F68 /* FindingRock.swift in Sources */,
 				020F4F911E7AD938007D723B /* GameScene.swift in Sources */,
 				02B3956E1E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
 				02B3956A1E7E8D5700E6476F /* Bot.swift in Sources */,
@@ -324,6 +344,8 @@
 			files = (
 				02B395731E82792C00E6476F /* Rock.swift in Sources */,
 				02B395771E83CFF600E6476F /* MovementComponent.swift in Sources */,
+				02630CC91E86F13800D88F68 /* ExtractingFromRock.swift in Sources */,
+				02630CC51E86ED2000D88F68 /* FindingRock.swift in Sources */,
 				020F4F921E7AD938007D723B /* GameScene.swift in Sources */,
 				02B3956F1E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
 				02B3956B1E7E8D5700E6476F /* Bot.swift in Sources */,
@@ -338,6 +360,8 @@
 			files = (
 				02B395741E82792C00E6476F /* Rock.swift in Sources */,
 				02B395781E83CFF600E6476F /* MovementComponent.swift in Sources */,
+				02630CCA1E86F13800D88F68 /* ExtractingFromRock.swift in Sources */,
+				02630CC61E86ED2000D88F68 /* FindingRock.swift in Sources */,
 				020F4F931E7AD938007D723B /* GameScene.swift in Sources */,
 				02B395701E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
 				02B3956C1E7E8D5700E6476F /* Bot.swift in Sources */,

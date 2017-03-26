@@ -12,9 +12,12 @@ import SpriteKit
 
 class Bot : GKEntity {
     fileprivate var targetSprite: SKSpriteNode?
+    var targetRock: Rock?
+    var stateMachine: GKStateMachine!
     
     init(pos: CGPoint) {
         super.init()
+        
         let comp = SpriteComponent(name: "bot", color: .green, size: CGSize.init(width: 16, height: 16))
         comp.spriteNode.position = pos
         addComponent(comp)
@@ -23,6 +26,13 @@ class Bot : GKEntity {
 
         let movement = MovementComponent(body: comp.spriteNode)
         addComponent(movement)
+        
+        stateMachine = GKStateMachine( states: [
+            FindingRockState(bot: self),
+            ExtractingFromRockState(bot: self)
+        ])
+        
+        stateMachine.enter(FindingRockState.self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,29 +54,42 @@ class Bot : GKEntity {
         movement?.setTarget(pos: pos)
     }
 
-    func selectTarget() {
+    func findClosesRock() -> Rock? {
         let myPos = self.getPosition()
         var closestDistance = CGFloat.infinity
-        var targetPosition = CGPoint.init(x: 0, y: 0)
+        var targetRock: Rock?
         for candidate in (world?.targets)! {
-            let spriteComp = candidate.component(ofType: SpriteComponent.self)
-            if spriteComp != nil {
-                let candidatePosition = spriteComp?.spriteNode.position
-                let distance = CGPointDistance(from: myPos, to: candidatePosition!)
-                if distance < closestDistance {
-                    targetPosition = candidatePosition!
-                    closestDistance = distance
+            let rock = candidate as? Rock
+            if rock != nil {
+                let spriteComp = candidate.component(ofType: SpriteComponent.self)
+                if spriteComp != nil {
+                    let candidatePosition = spriteComp?.spriteNode.position
+                    let distance = CGPointDistance(from: myPos, to: candidatePosition!)
+                    if distance < closestDistance {
+                        closestDistance = distance
+                        targetRock = rock
+                    }
                 }
             }
         }
+        
+        return targetRock
+    }
+    
+    func setTargetRock(rock: Rock) {
+        self.targetRock = rock
+        let targetPosition = rock.getPosition()
         if let target = self.targetSprite {
             target.removeFromParent()
         }
+
         self.targetSprite = SKSpriteNode.init(color: .yellow, size: CGSize.init(width: 8, height: 8))
         self.targetSprite?.position = targetPosition
         world?.addChild(self.targetSprite!)
-        
-        self.goTo(pos: targetPosition)
+    }
+    
+    func addResource(type: String, quantity: Int) {
+        print("Bot collected", quantity, type)
     }
     
     func HandleContact(other: GKEntity?) {
@@ -75,8 +98,9 @@ class Bot : GKEntity {
         }
         
         if (other?.isKind(of: Rock.self))! {
-            world?.removeTarget(target: other!)
-            self.selectTarget()
+            if other == self.targetRock {
+                self.stateMachine.enter(ExtractingFromRockState.self)
+            }
         }
     }
     

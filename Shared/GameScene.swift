@@ -47,13 +47,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         let bot1 = Bot.init(pos: CGPoint.init(x: -100, y: 0 ))
         self.addEntity(entity: bot1)
-        bot1.selectTarget()
         self.bots.insert(bot1)
         
         let bot2 = Bot.init(pos: CGPoint.init(x: 100, y: 0 ))
         self.addEntity(entity: bot2)
         self.bots.insert(bot2)
-        bot2.selectTarget()
     }
     
     override func didMove(to view: SKView) {
@@ -72,9 +70,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let rock = Rock(pos: at)
         self.addEntity(entity: rock)
         self.targets.insert(rock)
-        for bot in self.bots {
-            bot.selectTarget()
-        }
     }
     
     func removeTarget(target: GKEntity) {
@@ -85,12 +80,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        let dt = 0.01666
         // Called before each frame is rendered
         for bot in self.bots {
             let comp = bot.component(ofType: MovementComponent.self)
             if (comp != nil) {
-                comp?.update(deltaTime: 0.01666)
+                comp?.update(deltaTime: dt)
             }
+            bot.stateMachine.update(deltaTime: dt)
         }
     }
     

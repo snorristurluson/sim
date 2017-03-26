@@ -11,13 +11,17 @@ import GameKit
 
 class Rock : GKEntity {
     var isTargeted = false
+    var piecesLeft = 0
     
     init(pos: CGPoint) {
         super.init()
         let comp = SpriteComponent(name: "rock", color: .red, size: CGSize.init(width: 32, height: 32))
         comp.spriteNode.position = pos
+        comp.spriteNode.physicsBody?.isDynamic = false
         addComponent(comp)
         addComponent(GKSKNodeComponent(node: comp.spriteNode))
+        
+        self.piecesLeft = random.nextInt(upperBound: 5) + 1
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -29,4 +33,11 @@ class Rock : GKEntity {
         return (comp?.spriteNode.position)!
     }
     
+    func takePiece() -> Bool {
+        if self.piecesLeft > 0 {
+            self.piecesLeft -= 1
+            return true
+        }
+        return false
+    }
 }
