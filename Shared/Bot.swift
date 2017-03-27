@@ -52,22 +52,17 @@ class Bot : GKEntity {
         return (comp?.spriteNode.position)!
     }
     
-    func goTo(pos: CGPoint) {
-        let movement = self.component(ofType: MovementComponent.self)
-        movement?.setTarget(pos: pos)
-    }
-
     func findClosest(type: AnyClass) -> GKEntity? {
         let myPos = self.getPosition()
-        var closestDistance = CGFloat.infinity
+        var closestDistance = CGFloat(0) //CGFloat.infinity
         var target: GKEntity?
-        for candidate in (world?.targets)! {
+        for candidate in (world?.entities)! {
             if candidate.isKind(of: type) {
                 let spriteComp = candidate.component(ofType: SpriteComponent.self)
                 if spriteComp != nil {
                     let candidatePosition = spriteComp?.spriteNode.position
                     let distance = CGPointDistance(from: myPos, to: candidatePosition!)
-                    if distance < closestDistance {
+                    if distance > closestDistance {
                         closestDistance = distance
                         target = candidate
                     }
@@ -89,6 +84,9 @@ class Bot : GKEntity {
         self.targetSprite = SKSpriteNode.init(color: .yellow, size: CGSize.init(width: 8, height: 8))
         self.targetSprite?.position = targetPosition!
         world?.addChild(self.targetSprite!)
+
+        let movement = self.component(ofType: MovementComponent.self)
+        movement?.setTarget(entity: entity)
     }
     
     func addResource(_ resource: Resource) {

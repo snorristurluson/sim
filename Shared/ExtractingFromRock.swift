@@ -37,13 +37,13 @@ class ExtractingFromRockState : GKState {
                         self.stateMachine?.enter(ExtractingFromRockState.self)
                     }
                     else {
-                        world?.removeTarget(target: rock!)
+                        world?.removeEntity(entity: rock!)
                         self.stateMachine?.enter(FindingRockState.self)
                     }
                 }
                 else {
                     print("Couldn't take a piece from the rock")
-                    world?.removeTarget(target: rock!)
+                    world?.removeEntity(entity: rock!)
                     self.stateMachine?.enter(FindingRockState.self)
                 }
             }

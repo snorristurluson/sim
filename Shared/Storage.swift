@@ -19,6 +19,7 @@ class Storage : GKEntity {
         comp.spriteNode.physicsBody?.isDynamic = false
         addComponent(comp)
         addComponent(GKSKNodeComponent(node: comp.spriteNode))
+        addComponent(ObstacleComponent(sprite: comp.spriteNode))
     }
     
     required init?(coder aDecoder: NSCoder) {

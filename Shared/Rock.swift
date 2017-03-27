@@ -19,6 +19,7 @@ class Rock : GKEntity {
         comp.spriteNode.physicsBody?.isDynamic = false
         addComponent(comp)
         addComponent(GKSKNodeComponent(node: comp.spriteNode))
+        addComponent(ObstacleComponent(sprite: comp.spriteNode))
         
         self.piecesLeft = random.nextInt(upperBound: 5) + 1
     }

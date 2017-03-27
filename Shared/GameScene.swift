@@ -16,7 +16,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     fileprivate var bots : Set<Bot> = []
-    var targets = Set<GKEntity>()
+    var entities = Set<GKEntity>()
+    var navigationGraph: GKMeshGraph<GKGraphNode2D>?
 
     
     class func newGameScene() -> GameScene {
@@ -37,13 +38,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setUpScene() {
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-
-        for _ in 1...100 {
-            let x = Double(random.nextUniform() * 1200 - 600)
-            let y = Double(random.nextUniform() * 900 - 450)
-            let pos = CGPoint.init(x: x, y: y)
-            self.addTarget(at: pos)
+        self.navigationGraph = GKMeshGraph<GKGraphNode2D>(
+                bufferRadius: 16,
+                minCoordinate: vector_float2(Float(self.frame.minX - 32), Float(self.frame.minY + 32)),
+                maxCoordinate: vector_float2(Float(self.frame.maxX - 32), Float(self.frame.maxY + 32))
+        )
+        self.navigationGraph?.triangulationMode = [.vertices, .centers, .edgeMidpoints]
+        for _ in 1...20 {
+            let x = Double(random.nextUniform() * Float(self.frame.width) + Float(self.frame.minX))
+            let y = Double(random.nextUniform() * Float(self.frame.height) + Float(self.frame.minY))
+            let rock = Rock(pos: CGPoint.init(x: x, y: y))
+            self.addEntity(entity: rock)
         }
+        
+        let storage = Storage.init(pos: CGPoint(x: 0, y: -100))
+        self.addEntity(entity: storage)
+        
+        self.navigationGraph?.triangulate()
 
         let bot1 = Bot.init(name: "bot1", pos: CGPoint.init(x: -100, y: 0 ))
         self.addEntity(entity: bot1)
@@ -53,8 +64,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addEntity(entity: bot2)
         self.bots.insert(bot2)
         
-        let storage = Storage.init(pos: CGPoint(x: 0, y: -100))
-        self.addEntity(entity: storage)
     }
     
     override func didMove(to view: SKView) {
@@ -66,20 +75,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let spriteComp = entity.component(ofType: SpriteComponent.self) {
             self.addChild(spriteComp.spriteNode)
         }
-        self.targets.insert(entity)
+        if let obstacleComp = entity.component(ofType: ObstacleComponent.self) {
+            let obstacle = obstacleComp.obstacle
+            if obstacle != nil {
+                self.navigationGraph?.addObstacles([obstacle!])
+            }
+        }
+        self.entities.insert(entity)
     }
     
-    func addTarget(at: CGPoint) {
-        print("Adding target at", at)
-        let rock = Rock(pos: at)
-        self.addEntity(entity: rock)
-    }
-    
-    func removeTarget(target: GKEntity) {
-        if let spriteComp = target.component(ofType: SpriteComponent.self) {
+    func removeEntity(entity: GKEntity) {
+        if let spriteComp = entity.component(ofType: SpriteComponent.self) {
             spriteComp.spriteNode.removeFromParent()
         }
-        self.targets.remove(target)
+        if let obstacleComp = entity.component(ofType: ObstacleComponent.self) {
+            let obstacle = obstacleComp.obstacle
+            if obstacle != nil {
+                self.navigationGraph?.removeObstacles([obstacle!])
+                self.navigationGraph?.triangulate()
+            }
+        }
+        self.entities.remove(entity)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -116,9 +132,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 extension GameScene {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            self.addTarget(at: t.location(in: self))
-        }
     }
 }
 #endif
@@ -128,7 +141,9 @@ extension GameScene {
 extension GameScene {
 
     override func mouseDown(with event: NSEvent) {
-        self.addTarget(at: event.location(in: self))
+    }
+    
+    override func mouseMoved(with event: NSEvent) {
     }
 }
 #endif

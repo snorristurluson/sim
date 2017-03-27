@@ -21,7 +21,6 @@ class FindingRockState : GKState {
         let rock = bot.findClosest(type: Rock.self) as? Rock
         if rock != nil {
             self.bot.setTarget(entity: rock!)
-            self.bot.goTo(pos: (rock?.getPosition())!)
         }
     }
     

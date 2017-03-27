@@ -22,7 +22,6 @@ class MovingToStorageState : GKState {
         if storage != nil {
             print("Found storage")
             self.bot.setTarget(entity: storage!)
-            self.bot.goTo(pos: (storage?.getPosition())!)
         }
     }
     

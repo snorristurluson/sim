@@ -56,6 +56,9 @@
 		02B395761E83CFF600E6476F /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395751E83CFF600E6476F /* MovementComponent.swift */; };
 		02B395771E83CFF600E6476F /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395751E83CFF600E6476F /* MovementComponent.swift */; };
 		02B395781E83CFF600E6476F /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395751E83CFF600E6476F /* MovementComponent.swift */; };
+		CA7F91539B46EF7842D5F43F /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */; };
+		CA7F95D50C863AD4A3703BE7 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */; };
+		CA7F98A9842F587F7CACD845 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +91,7 @@
 		02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		02B395711E82792C00E6476F /* Rock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
 		02B395751E83CFF600E6476F /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
+		CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,7 @@
 				02B395751E83CFF600E6476F /* MovementComponent.swift */,
 				02630CCF1E87C4E100D88F68 /* Storage.swift */,
 				02630CD71E87CE2E00D88F68 /* Resource.swift */,
+				CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -353,6 +358,7 @@
 				02630CD81E87CE2E00D88F68 /* Resource.swift in Sources */,
 				020F4F651E7AD938007D723B /* AppDelegate.swift in Sources */,
 				02630CD01E87C4E100D88F68 /* Storage.swift in Sources */,
+				CA7F95D50C863AD4A3703BE7 /* ObstacleComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +378,7 @@
 				02630CD91E87CE2E00D88F68 /* Resource.swift in Sources */,
 				020F4F761E7AD938007D723B /* AppDelegate.swift in Sources */,
 				02630CD11E87C4E100D88F68 /* Storage.swift in Sources */,
+				CA7F98A9842F587F7CACD845 /* ObstacleComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +398,7 @@
 				02630CDA1E87CE2E00D88F68 /* Resource.swift in Sources */,
 				020F4F841E7AD938007D723B /* AppDelegate.swift in Sources */,
 				02630CD21E87C4E100D88F68 /* Storage.swift in Sources */,
+				CA7F91539B46EF7842D5F43F /* ObstacleComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
