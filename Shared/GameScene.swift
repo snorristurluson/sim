@@ -45,8 +45,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         )
         self.navigationGraph?.triangulationMode = [.vertices, .centers, .edgeMidpoints]
         for _ in 1...20 {
-            let x = Double(random.nextUniform() * Float(self.frame.width) + Float(self.frame.minX))
-            let y = Double(random.nextUniform() * Float(self.frame.height) + Float(self.frame.minY))
+            let x = Double(random.nextUniform() * Float(self.frame.width - 64) + Float(self.frame.minX + 32))
+            let y = Double(random.nextUniform() * Float(self.frame.height - 64) + Float(self.frame.minY + 32))
             let rock = Rock(pos: CGPoint.init(x: x, y: y))
             self.addEntity(entity: rock)
         }

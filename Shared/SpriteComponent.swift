@@ -20,7 +20,19 @@ class SpriteComponent : GKComponent {
         let physicsBody = SKPhysicsBody.init(circleOfRadius: radius)
         self.spriteNode.physicsBody = physicsBody
         physicsBody.contactTestBitMask = physicsBody.collisionBitMask
-        // physicsBody.collisionBitMask = 0
+        physicsBody.allowsRotation = false
+
+        super.init()
+    }
+
+    init(name: String, imageNamed: String) {
+        self.spriteNode = SKSpriteNode.init(imageNamed: imageNamed)
+        self.spriteNode.name = name
+
+        let radius = self.spriteNode.size.width / 2
+        let physicsBody = SKPhysicsBody.init(circleOfRadius: radius)
+        self.spriteNode.physicsBody = physicsBody
+        physicsBody.contactTestBitMask = physicsBody.collisionBitMask
 
         super.init()
     }

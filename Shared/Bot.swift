@@ -25,8 +25,9 @@ class Bot : GKEntity {
         
         super.init()
 
-        let comp = SpriteComponent(name: "bot", color: .green, size: CGSize.init(width: 16, height: 16))
+        let comp = SpriteComponent(name: "bot", imageNamed: "bot.png")
         comp.spriteNode.position = pos
+        comp.spriteNode.physicsBody?.mass = 10
         addComponent(comp)
 
         addComponent(GKSKNodeComponent(node: comp.spriteNode))
