@@ -85,17 +85,17 @@ class SpriteComponent : GKComponent {
             let options = [NSTrackingAreaOptions.mouseEnteredAndExited, NSTrackingAreaOptions.activeInKeyWindow] as NSTrackingAreaOptions
             var frame = self.spriteNode.calculateAccumulatedFrame()
             frame.origin = view.convert(frame.origin, from: scene)
-            let trackingArea = NSTrackingArea(rect:frame, options:options, owner:self.spriteNode, userInfo:nil)
-            view.addTrackingArea(trackingArea)
+            self.trackingArea = NSTrackingArea(rect:frame, options:options, owner:self.spriteNode, userInfo:nil)
+            view.addTrackingArea(self.trackingArea!)
         }
     }
 
     func removeFromScene(scene: SKScene) {
         self.spriteNode.removeFromParent()
-        let view = scene.view
-        let trackingArea = self.trackingArea
-        if view != nil && trackingArea != nil {
-            view!.addTrackingArea(trackingArea!)
+
+        if let view = scene.view, let trackingArea = self.trackingArea {
+            print("Removing tracking area")
+            view.removeTrackingArea(trackingArea)
         }
     }
 }

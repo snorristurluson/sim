@@ -10,7 +10,7 @@ import Foundation
 import GameKit
 
 class Storage : GKEntity {
-    var contents = [Resource]()
+    var contents = [String: Int]()
     
     init(pos: CGPoint) {
         super.init()
@@ -20,8 +20,14 @@ class Storage : GKEntity {
         addComponent(comp)
         addComponent(GKSKNodeComponent(node: comp.spriteNode))
         addComponent(ObstacleComponent(sprite: comp.spriteNode))
+
+        let labelComp = LabelComponent(parent: comp.spriteNode)
+        addComponent(labelComp)
+        
+        let text = "Storage:\nEmpty"
+        labelComp.setText(text)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -36,7 +42,20 @@ class Storage : GKEntity {
         // Return value of 0 means everything was taken in
         // todo: handle quantities
         print("Added", resource.quantity, resource.type, "to storage")
-        self.contents.append(resource)
+        var currentValue = self.contents[resource.type]
+        if currentValue == nil {
+            currentValue = 0
+        }
+        self.contents[resource.type] = currentValue! + resource.quantity
+
+        if let labelComp = component(ofType: LabelComponent.self) {
+            var text = "Storage:\n"
+            for (type, quantity) in contents {
+                let line = "\(type): \(quantity)\n"
+                text += line
+            }
+            labelComp.setText(text)
+        } 
         return 0
     }
 }

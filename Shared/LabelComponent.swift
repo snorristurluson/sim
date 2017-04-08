@@ -8,7 +8,10 @@ import GameKit
 
 class LabelComponent : GKComponent {
     var label: SKLabelNode
+    var extraLines = [SKLabelNode]()
     var parent: SKNode
+
+    let LINEHEIGHT = 24
 
     init(parent: SKNode) {
         self.parent = parent
@@ -30,6 +33,24 @@ class LabelComponent : GKComponent {
     }
 
     func setText(_ text: String) {
-        self.label.text = text
+        let lines = text.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: .newlines)
+        for item in self.extraLines {
+            item.removeFromParent()
+        }
+        self.extraLines.removeAll()
+        if lines.count > 1 {
+            self.label.text = ""
+            var y = lines.count * LINEHEIGHT
+            for line in lines {
+                let lineLabel = SKLabelNode(text: line)
+                self.extraLines.append(lineLabel)
+                lineLabel.position = CGPoint(x: 0, y: y)
+                self.label.addChild(lineLabel)
+                y -= LINEHEIGHT
+            }
+        }
+        else {
+            self.label.text = text
+        }
     }
 }
