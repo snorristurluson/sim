@@ -31,7 +31,7 @@ class ExtractingFromRockState : GKState {
                 if (rock?.takePiece())! {
                     bot.addResource(Resource.init(type: "iron", quantity: 1))
                     if bot.isCargoFull() {
-                        self.stateMachine?.enter(MovingToStorageState.self)
+                        self.stateMachine?.enter(FindingStorageState.self)
                     }
                     else if (rock?.piecesLeft)! > 0 {
                         self.stateMachine?.enter(ExtractingFromRockState.self)
@@ -56,7 +56,7 @@ class ExtractingFromRockState : GKState {
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         switch stateClass {
-        case is FindingRockState.Type, is ExtractingFromRockState.Type, is MovingToStorageState.Type:
+        case is FindingRockState.Type, is ExtractingFromRockState.Type, is FindingStorageState.Type:
             return true
         default:
             return false

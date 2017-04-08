@@ -9,31 +9,31 @@
 import Foundation
 import GameKit
 
-class MovingToStorageState : GKState {
+class FindingStorageState : GKState {
     unowned var bot: Bot
-    var storage: Storage?
-    var time = 0.0
-    
+
     required init(bot: Bot) {
         self.bot = bot
     }
-    
+
     override func didEnter(from previousState: GKState?) {
-        print(self.bot.name, "Entering MovingToStorageState")
-        self.time = 0
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        self.time += seconds
-        if self.time > 1.0 {
-            self.bot.moveCargoToStorage(self.bot.target as! Storage)
-            self.bot.stateMachine.enter(FindingRockState.self)
+        print(self.bot.name, "Entering FindingStorageState")
+        let storage = bot.findClosest(type: Storage.self) as? Storage
+        if storage != nil {
+            print("Found storage")
+            self.bot.setTarget(entity: storage!)
         }
     }
-    
+
+    override func update(deltaTime seconds: TimeInterval) {
+        if self.bot.contact == self.bot.target {
+            self.bot.stateMachine.enter(MovingToStorageState.self)
+        }
+    }
+
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         switch stateClass {
-        case is FindingRockState.Type:
+        case is MovingToStorageState.Type:
             return true
         default:
             return false

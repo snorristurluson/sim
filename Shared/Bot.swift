@@ -38,6 +38,7 @@ class Bot : GKEntity {
         stateMachine = GKStateMachine( states: [
             FindingRockState(bot: self),
             ExtractingFromRockState(bot: self),
+            FindingStorageState(bot: self),
             MovingToStorageState(bot: self)
         ])
         
