@@ -69,11 +69,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         world = self
         self.setUpScene()
+
+        let options = [NSTrackingAreaOptions.mouseMoved, NSTrackingAreaOptions.activeInKeyWindow] as NSTrackingAreaOptions
+        print(view.frame)
+        let trackingArea = NSTrackingArea(rect:view.frame,options:options,owner:self,userInfo:nil)
+        view.addTrackingArea(trackingArea)
     }
 
     func addEntity(entity: GKEntity) {
         if let spriteComp = entity.component(ofType: SpriteComponent.self) {
-            self.addChild(spriteComp.spriteNode)
+            spriteComp.addToScene(scene: self)
         }
         if let obstacleComp = entity.component(ofType: ObstacleComponent.self) {
             let obstacle = obstacleComp.obstacle
@@ -86,7 +91,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func removeEntity(entity: GKEntity) {
         if let spriteComp = entity.component(ofType: SpriteComponent.self) {
-            spriteComp.spriteNode.removeFromParent()
+            spriteComp.removeFromScene(scene: self)
         }
         if let obstacleComp = entity.component(ofType: ObstacleComponent.self) {
             let obstacle = obstacleComp.obstacle
@@ -139,12 +144,6 @@ extension GameScene {
 #if os(OSX)
 // Mouse-based event handling
 extension GameScene {
-
-    override func mouseDown(with event: NSEvent) {
-    }
-    
-    override func mouseMoved(with event: NSEvent) {
-    }
 }
 #endif
 
