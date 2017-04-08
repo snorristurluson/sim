@@ -62,8 +62,11 @@
 		CA7F90CF3498FA5F3913B3E0 /* FindingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9C46C08E62E4C0F3A5A1 /* FindingStorage.swift */; };
 		CA7F91539B46EF7842D5F43F /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */; };
 		CA7F927175E8C46931DB0743 /* FindingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9C46C08E62E4C0F3A5A1 /* FindingStorage.swift */; };
+		CA7F9538DBC203960266C1BA /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F972C9622635652C4C70A /* LabelComponent.swift */; };
+		CA7F95AF6B1975EB79F671A6 /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F972C9622635652C4C70A /* LabelComponent.swift */; };
 		CA7F95D50C863AD4A3703BE7 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */; };
 		CA7F98A9842F587F7CACD845 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */; };
+		CA7F99D4965612DA235CAA3D /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F972C9622635652C4C70A /* LabelComponent.swift */; };
 		CA7F9BAAE726BAEC650F85AD /* FindingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9C46C08E62E4C0F3A5A1 /* FindingStorage.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +102,7 @@
 		02B395751E83CFF600E6476F /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		02BBB3281E8C6B1500F77DD8 /* bot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bot.png; sourceTree = "<group>"; };
 		CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleComponent.swift; sourceTree = "<group>"; };
+		CA7F972C9622635652C4C70A /* LabelComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelComponent.swift; sourceTree = "<group>"; };
 		CA7F9C46C08E62E4C0F3A5A1 /* FindingStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindingStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +158,7 @@
 				02630CCF1E87C4E100D88F68 /* Storage.swift */,
 				02630CD71E87CE2E00D88F68 /* Resource.swift */,
 				CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */,
+				CA7F972C9622635652C4C70A /* LabelComponent.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -373,6 +378,7 @@
 				02630CD01E87C4E100D88F68 /* Storage.swift in Sources */,
 				CA7F95D50C863AD4A3703BE7 /* ObstacleComponent.swift in Sources */,
 				CA7F90CF3498FA5F3913B3E0 /* FindingStorage.swift in Sources */,
+				CA7F9538DBC203960266C1BA /* LabelComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +400,7 @@
 				02630CD11E87C4E100D88F68 /* Storage.swift in Sources */,
 				CA7F98A9842F587F7CACD845 /* ObstacleComponent.swift in Sources */,
 				CA7F927175E8C46931DB0743 /* FindingStorage.swift in Sources */,
+				CA7F99D4965612DA235CAA3D /* LabelComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +422,7 @@
 				02630CD21E87C4E100D88F68 /* Storage.swift in Sources */,
 				CA7F91539B46EF7842D5F43F /* ObstacleComponent.swift in Sources */,
 				CA7F9BAAE726BAEC650F85AD /* FindingStorage.swift in Sources */,
+				CA7F95AF6B1975EB79F671A6 /* LabelComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

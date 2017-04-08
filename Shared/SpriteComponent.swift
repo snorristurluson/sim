@@ -33,11 +33,17 @@ class InteractiveSpriteNode : SKSpriteNode {
     override public func mouseEntered(with: NSEvent) {
         print("Mouse entered", self.name!)
         self.color = self.highlightColor
+        if let labelComp = self.entity!.component(ofType: LabelComponent.self) {
+            labelComp.show()
+        }
     }
 
     override public func mouseExited(with: NSEvent) {
         print("Mouse exited", self.name!)
         self.color = self.regularColor
+        if let labelComp = self.entity!.component(ofType: LabelComponent.self) {
+            labelComp.hide()
+        }
     }
 }
 

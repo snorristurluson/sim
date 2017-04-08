@@ -20,8 +20,10 @@ class Rock : GKEntity {
         addComponent(comp)
         addComponent(GKSKNodeComponent(node: comp.spriteNode))
         addComponent(ObstacleComponent(sprite: comp.spriteNode))
-        
+        let labelComp = LabelComponent(parent: comp.spriteNode)
+        addComponent(labelComp)
         self.piecesLeft = random.nextInt(upperBound: 5) + 1
+        labelComp.setText("Rock: " + String(self.piecesLeft))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,6 +38,9 @@ class Rock : GKEntity {
     func takePiece() -> Bool {
         if self.piecesLeft > 0 {
             self.piecesLeft -= 1
+            if let labelComp = component(ofType: LabelComponent.self) {
+                labelComp.setText("Rock: " + String(self.piecesLeft))
+            }
             return true
         }
         return false
