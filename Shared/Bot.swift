@@ -13,6 +13,7 @@ import SpriteKit
 class Bot : GKEntity {
     fileprivate var targetSprite: SKSpriteNode?
     var name: String
+    var resourceTypeWanted = "iron"
     weak var target: GKEntity?
     weak var contact: GKEntity?
     
@@ -54,19 +55,20 @@ class Bot : GKEntity {
         return (comp?.spriteNode.position)!
     }
     
-    func findClosest(type: AnyClass) -> GKEntity? {
+    func findClosest(resource: String) -> GKEntity? {
         let myPos = self.getPosition()
-        var closestDistance = CGFloat(0) //CGFloat.infinity
+        var closestDistance = CGFloat.infinity
         var target: GKEntity?
         for candidate in (world?.entities)! {
-            if candidate.isKind(of: type) {
-                let spriteComp = candidate.component(ofType: SpriteComponent.self)
-                if spriteComp != nil {
-                    let candidatePosition = spriteComp?.spriteNode.position
-                    let distance = CGPointDistance(from: myPos, to: candidatePosition!)
-                    if distance > closestDistance {
-                        closestDistance = distance
-                        target = candidate
+            if let resourceComp = candidate.component(ofType: ResourceComponent.self) {
+                if resourceComp.getCount(resource) > 0 {
+                    if let spriteComp = candidate.component(ofType: SpriteComponent.self) {
+                        let candidatePosition = spriteComp.spriteNode.position
+                        let distance = CGPointDistance(from: myPos, to: candidatePosition)
+                        if distance < closestDistance {
+                            closestDistance = distance
+                            target = candidate
+                        }
                     }
                 }
             }
@@ -74,7 +76,28 @@ class Bot : GKEntity {
         
         return target
     }
-    
+
+    func findClosest(type: AnyClass) -> GKEntity? {
+        let myPos = self.getPosition()
+        var closestDistance = CGFloat.infinity
+        var target: GKEntity?
+        for candidate in (world?.entities)! {
+            if candidate.isKind(of: type) {
+                let spriteComp = candidate.component(ofType: SpriteComponent.self)
+                if spriteComp != nil {
+                    let candidatePosition = spriteComp?.spriteNode.position
+                    let distance = CGPointDistance(from: myPos, to: candidatePosition!)
+                    if distance < closestDistance {
+                        closestDistance = distance
+                        target = candidate
+                    }
+                }
+            }
+        }
+
+        return target
+    }
+
     func setTarget(entity: GKEntity) {
         self.target = entity
         let spriteComp = entity.component(ofType: SpriteComponent.self)

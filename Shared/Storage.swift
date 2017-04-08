@@ -23,9 +23,8 @@ class Storage : GKEntity {
 
         let labelComp = LabelComponent(parent: comp.spriteNode)
         addComponent(labelComp)
-        
-        let text = "Storage:\nEmpty"
-        labelComp.setText(text)
+
+        self.updateLabel()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -47,15 +46,23 @@ class Storage : GKEntity {
             currentValue = 0
         }
         self.contents[resource.type] = currentValue! + resource.quantity
+        self.updateLabel()
+        return 0
+    }
 
+    func updateLabel() {
         if let labelComp = component(ofType: LabelComponent.self) {
             var text = "Storage:\n"
-            for (type, quantity) in contents {
-                let line = "\(type): \(quantity)\n"
-                text += line
+            if contents.isEmpty {
+                text += "Empty"
+            }
+            else {
+                for (type, quantity) in contents {
+                    let line = "\(type): \(quantity)\n"
+                    text += line
+                }
             }
             labelComp.setText(text)
-        } 
-        return 0
+        }
     }
 }

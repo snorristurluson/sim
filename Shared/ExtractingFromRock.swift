@@ -25,25 +25,20 @@ class ExtractingFromRockState : GKState {
     override func update(deltaTime seconds: TimeInterval) {
         self.time += seconds
         if self.time > 1.0 {
-            print("Taking iron from rock")
-            let rock = self.bot.target as? Rock
-            if rock != nil {
-                if (rock?.takePiece())! {
-                    bot.addResource(Resource.init(type: "iron", quantity: 1))
+            print("Taking \(self.bot.resourceTypeWanted) from rock")
+
+            if let rock = self.bot.target as? Rock {
+                if rock.takeResource(type: self.bot.resourceTypeWanted) {
+                    bot.addResource(Resource.init(type: self.bot.resourceTypeWanted, quantity: 1))
                     if bot.isCargoFull() {
                         self.stateMachine?.enter(FindingStorageState.self)
                     }
-                    else if (rock?.piecesLeft)! > 0 {
+                    else if rock.hasResource(type: self.bot.resourceTypeWanted) {
                         self.stateMachine?.enter(ExtractingFromRockState.self)
-                    }
-                    else {
-                        world?.removeEntity(entity: rock!)
-                        self.stateMachine?.enter(FindingRockState.self)
                     }
                 }
                 else {
-                    print("Couldn't take a piece from the rock")
-                    world?.removeEntity(entity: rock!)
+                    print("Couldn't take \(self.bot.resourceTypeWanted) from the rock")
                     self.stateMachine?.enter(FindingRockState.self)
                 }
             }

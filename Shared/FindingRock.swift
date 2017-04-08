@@ -18,7 +18,7 @@ class FindingRockState : GKState {
     
     override func didEnter(from previousState: GKState?) {
         print(self.bot.name, "Entering FindingRockState")
-        let rock = bot.findClosest(type: Rock.self) as? Rock
+        let rock = bot.findClosest(resource: self.bot.resourceTypeWanted) as? Rock
         if rock != nil {
             self.bot.setTarget(entity: rock!)
         }
