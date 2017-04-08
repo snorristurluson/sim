@@ -58,6 +58,7 @@ class MovementComponent : GKComponent {
             prevRenderer.removeFromParent()
         }
         self.pathRenderer = SKShapeNode(points: &points, count: points.count)
+        self.pathRenderer?.zPosition = -1.0
         world?.addChild(self.pathRenderer!)
     }
     
@@ -76,13 +77,11 @@ class MovementComponent : GKComponent {
             }
         }
         let vn = CGVectorNormalize(v: v)
-        let desiredHeading = atan2(vn.dy, vn.dx) - CGFloat.pi / 2.0
         let desiredVelocity = CGVector.init(dx: vn.dx * self.speed, dy: vn.dy * self.speed)
         let currentVelocity = (self.sprite.physicsBody?.velocity)!
-        let currentHeading = atan2(currentVelocity.dy, currentVelocity.dx) - CGFloat.pi / 2.0
-        
-        let desiredRotation = (desiredHeading + currentHeading * 4.0) / 5.0
-        self.sprite.zRotation = desiredRotation
+        let currentHeading = atan2(currentVelocity.dy, currentVelocity.dx)
+
+        self.sprite.zRotation = currentHeading
 
         let d = CGVector.init(dx: desiredVelocity.dx - currentVelocity.dx, dy: desiredVelocity.dy - currentVelocity.dy)
         let dt = CGFloat.init(seconds)
