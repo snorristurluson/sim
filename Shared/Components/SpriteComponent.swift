@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import GameKit
+import GameplayKit
 import SpriteKit
 
 class InteractiveSpriteNode : SKSpriteNode {
@@ -28,6 +28,9 @@ class InteractiveSpriteNode : SKSpriteNode {
 
     override public func mouseDown(with: NSEvent) {
         print("MouseDown", self.name!, with.locationInWindow, self.calculateAccumulatedFrame())
+        if let cmdComp = self.entity!.component(ofType: CommandComponent.self) {
+            cmdComp.show()
+        }
     }
 
     override public func mouseEntered(with: NSEvent) {

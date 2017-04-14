@@ -47,30 +47,36 @@
 		02B3956A1E7E8D5700E6476F /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395691E7E8D5700E6476F /* Bot.swift */; };
 		02B3956B1E7E8D5700E6476F /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395691E7E8D5700E6476F /* Bot.swift */; };
 		02B3956C1E7E8D5700E6476F /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395691E7E8D5700E6476F /* Bot.swift */; };
-		02B3956E1E7E8E1700E6476F /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */; };
-		02B3956F1E7E8E1700E6476F /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */; };
-		02B395701E7E8E1700E6476F /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */; };
 		02B395721E82792C00E6476F /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395711E82792C00E6476F /* Rock.swift */; };
 		02B395731E82792C00E6476F /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395711E82792C00E6476F /* Rock.swift */; };
 		02B395741E82792C00E6476F /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395711E82792C00E6476F /* Rock.swift */; };
-		02B395761E83CFF600E6476F /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395751E83CFF600E6476F /* MovementComponent.swift */; };
-		02B395771E83CFF600E6476F /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395751E83CFF600E6476F /* MovementComponent.swift */; };
-		02B395781E83CFF600E6476F /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B395751E83CFF600E6476F /* MovementComponent.swift */; };
 		02BBB3291E8C6B1500F77DD8 /* bot.png in Resources */ = {isa = PBXBuildFile; fileRef = 02BBB3281E8C6B1500F77DD8 /* bot.png */; };
 		02BBB32A1E8C6B2300F77DD8 /* bot.png in Resources */ = {isa = PBXBuildFile; fileRef = 02BBB3281E8C6B1500F77DD8 /* bot.png */; };
 		02BBB32B1E8C6B2400F77DD8 /* bot.png in Resources */ = {isa = PBXBuildFile; fileRef = 02BBB3281E8C6B1500F77DD8 /* bot.png */; };
+		CA7F90742504E2C2A4EE45FA /* ResourceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F930C6C7B91B914AAFC98 /* ResourceComponent.swift */; };
 		CA7F90CF3498FA5F3913B3E0 /* FindingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9C46C08E62E4C0F3A5A1 /* FindingStorage.swift */; };
-		CA7F91539B46EF7842D5F43F /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */; };
 		CA7F927175E8C46931DB0743 /* FindingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9C46C08E62E4C0F3A5A1 /* FindingStorage.swift */; };
-		CA7F92F2A0286DB2CFCC7991 /* ResourceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9BA76F2BAE826C2BE68E /* ResourceComponent.swift */; };
-		CA7F9538DBC203960266C1BA /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F972C9622635652C4C70A /* LabelComponent.swift */; };
-		CA7F95AF6B1975EB79F671A6 /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F972C9622635652C4C70A /* LabelComponent.swift */; };
-		CA7F95D50C863AD4A3703BE7 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */; };
-		CA7F981EE8460EDE1F03215F /* ResourceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9BA76F2BAE826C2BE68E /* ResourceComponent.swift */; };
-		CA7F98A9842F587F7CACD845 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */; };
-		CA7F99D4965612DA235CAA3D /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F972C9622635652C4C70A /* LabelComponent.swift */; };
+		CA7F9305CD8DBFBAD3760FF3 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9DC0E5B59B7E4B810E09 /* ObstacleComponent.swift */; };
+		CA7F94375A6BA4AAEDB73114 /* ResourceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F930C6C7B91B914AAFC98 /* ResourceComponent.swift */; };
+		CA7F943A452AAD407665BD17 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F98891C1A541C092F6614 /* SpriteComponent.swift */; };
+		CA7F956BEEA16B66E10C2953 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9DC0E5B59B7E4B810E09 /* ObstacleComponent.swift */; };
+		CA7F960661A82AC97B49B299 /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A6DAFA2AF3BBA5C5DA0 /* LabelComponent.swift */; };
+		CA7F9689550A10731A643585 /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F98A5928170AC3D437C7E /* MovementComponent.swift */; };
+		CA7F969EA218416357A34AFB /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F98A5928170AC3D437C7E /* MovementComponent.swift */; };
+		CA7F96DF35A7E461F6C57B48 /* ResourceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F930C6C7B91B914AAFC98 /* ResourceComponent.swift */; };
+		CA7F96E7CFB231A215CE4FA7 /* CommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A40BBF048976801E7C4 /* CommandHandler.swift */; };
+		CA7F97362D80BCE2CF53CCF9 /* CommandComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9865414983E54B578317 /* CommandComponent.swift */; };
+		CA7F9870CECA7C6F5CDDD1B3 /* CommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A40BBF048976801E7C4 /* CommandHandler.swift */; };
+		CA7F9876F3C8DF4D9092593E /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A6DAFA2AF3BBA5C5DA0 /* LabelComponent.swift */; };
+		CA7F994B53176E14E7446D09 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9DC0E5B59B7E4B810E09 /* ObstacleComponent.swift */; };
+		CA7F9B37BC6B5C127AF7BCE1 /* CommandComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9865414983E54B578317 /* CommandComponent.swift */; };
 		CA7F9BAAE726BAEC650F85AD /* FindingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9C46C08E62E4C0F3A5A1 /* FindingStorage.swift */; };
-		CA7F9E37AB8A04F52F0117D6 /* ResourceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9BA76F2BAE826C2BE68E /* ResourceComponent.swift */; };
+		CA7F9BBF6A57D1DBEB395BEC /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F98A5928170AC3D437C7E /* MovementComponent.swift */; };
+		CA7F9DED775686E87128385E /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F98891C1A541C092F6614 /* SpriteComponent.swift */; };
+		CA7F9E4A02B3815EB5FC1330 /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A6DAFA2AF3BBA5C5DA0 /* LabelComponent.swift */; };
+		CA7F9F051FC822B6E8B9B53B /* CommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A40BBF048976801E7C4 /* CommandHandler.swift */; };
+		CA7F9FA5A13DC394A6853711 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F98891C1A541C092F6614 /* SpriteComponent.swift */; };
+		CA7F9FBFFB79FE8B6EEEFE6B /* CommandComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9865414983E54B578317 /* CommandComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,14 +106,16 @@
 		02630CD31E87C7B900D88F68 /* MovingToStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovingToStorage.swift; sourceTree = "<group>"; };
 		02630CD71E87CE2E00D88F68 /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		02B395691E7E8D5700E6476F /* Bot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
-		02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		02B395711E82792C00E6476F /* Rock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
-		02B395751E83CFF600E6476F /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		02BBB3281E8C6B1500F77DD8 /* bot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bot.png; sourceTree = "<group>"; };
-		CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleComponent.swift; sourceTree = "<group>"; };
-		CA7F972C9622635652C4C70A /* LabelComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelComponent.swift; sourceTree = "<group>"; };
-		CA7F9BA76F2BAE826C2BE68E /* ResourceComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceComponent.swift; sourceTree = "<group>"; };
+		CA7F930C6C7B91B914AAFC98 /* ResourceComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceComponent.swift; sourceTree = "<group>"; };
+		CA7F9865414983E54B578317 /* CommandComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandComponent.swift; sourceTree = "<group>"; };
+		CA7F98891C1A541C092F6614 /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
+		CA7F98A5928170AC3D437C7E /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
+		CA7F9A40BBF048976801E7C4 /* CommandHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandHandler.swift; sourceTree = "<group>"; };
+		CA7F9A6DAFA2AF3BBA5C5DA0 /* LabelComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelComponent.swift; sourceTree = "<group>"; };
 		CA7F9C46C08E62E4C0F3A5A1 /* FindingStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindingStorage.swift; sourceTree = "<group>"; };
+		CA7F9DC0E5B59B7E4B810E09 /* ObstacleComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,14 +164,11 @@
 				020F4F5B1E7AD938007D723B /* GameScene.swift */,
 				020F4F5C1E7AD938007D723B /* Assets.xcassets */,
 				02B395691E7E8D5700E6476F /* Bot.swift */,
-				02B3956D1E7E8E1700E6476F /* SpriteComponent.swift */,
 				02B395711E82792C00E6476F /* Rock.swift */,
-				02B395751E83CFF600E6476F /* MovementComponent.swift */,
 				02630CCF1E87C4E100D88F68 /* Storage.swift */,
 				02630CD71E87CE2E00D88F68 /* Resource.swift */,
-				CA7F9313691BB5707F1CC30C /* ObstacleComponent.swift */,
-				CA7F972C9622635652C4C70A /* LabelComponent.swift */,
-				CA7F9BA76F2BAE826C2BE68E /* ResourceComponent.swift */,
+				CA7F9E99CA319582B6DF46AE /* Components */,
+				CA7F9A40BBF048976801E7C4 /* CommandHandler.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -221,6 +226,19 @@
 				CA7F9C46C08E62E4C0F3A5A1 /* FindingStorage.swift */,
 			);
 			name = BotStates;
+			sourceTree = "<group>";
+		};
+		CA7F9E99CA319582B6DF46AE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				CA7F9A6DAFA2AF3BBA5C5DA0 /* LabelComponent.swift */,
+				CA7F98A5928170AC3D437C7E /* MovementComponent.swift */,
+				CA7F9DC0E5B59B7E4B810E09 /* ObstacleComponent.swift */,
+				CA7F930C6C7B91B914AAFC98 /* ResourceComponent.swift */,
+				CA7F98891C1A541C092F6614 /* SpriteComponent.swift */,
+				CA7F9865414983E54B578317 /* CommandComponent.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -370,21 +388,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				02B395721E82792C00E6476F /* Rock.swift in Sources */,
-				02B395761E83CFF600E6476F /* MovementComponent.swift in Sources */,
 				02630CC81E86F13800D88F68 /* ExtractingFromRock.swift in Sources */,
 				02630CC41E86ED2000D88F68 /* FindingRock.swift in Sources */,
 				020F4F911E7AD938007D723B /* GameScene.swift in Sources */,
-				02B3956E1E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
 				02B3956A1E7E8D5700E6476F /* Bot.swift in Sources */,
 				020F4F671E7AD938007D723B /* GameViewController.swift in Sources */,
 				02630CD41E87C7B900D88F68 /* MovingToStorage.swift in Sources */,
 				02630CD81E87CE2E00D88F68 /* Resource.swift in Sources */,
 				020F4F651E7AD938007D723B /* AppDelegate.swift in Sources */,
 				02630CD01E87C4E100D88F68 /* Storage.swift in Sources */,
-				CA7F95D50C863AD4A3703BE7 /* ObstacleComponent.swift in Sources */,
 				CA7F90CF3498FA5F3913B3E0 /* FindingStorage.swift in Sources */,
-				CA7F9538DBC203960266C1BA /* LabelComponent.swift in Sources */,
-				CA7F92F2A0286DB2CFCC7991 /* ResourceComponent.swift in Sources */,
+				CA7F9876F3C8DF4D9092593E /* LabelComponent.swift in Sources */,
+				CA7F9689550A10731A643585 /* MovementComponent.swift in Sources */,
+				CA7F956BEEA16B66E10C2953 /* ObstacleComponent.swift in Sources */,
+				CA7F96DF35A7E461F6C57B48 /* ResourceComponent.swift in Sources */,
+				CA7F943A452AAD407665BD17 /* SpriteComponent.swift in Sources */,
+				CA7F9B37BC6B5C127AF7BCE1 /* CommandComponent.swift in Sources */,
+				CA7F9F051FC822B6E8B9B53B /* CommandHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,21 +413,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				02B395731E82792C00E6476F /* Rock.swift in Sources */,
-				02B395771E83CFF600E6476F /* MovementComponent.swift in Sources */,
 				02630CC91E86F13800D88F68 /* ExtractingFromRock.swift in Sources */,
 				02630CC51E86ED2000D88F68 /* FindingRock.swift in Sources */,
 				020F4F921E7AD938007D723B /* GameScene.swift in Sources */,
-				02B3956F1E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
 				02B3956B1E7E8D5700E6476F /* Bot.swift in Sources */,
 				020F4F781E7AD938007D723B /* GameViewController.swift in Sources */,
 				02630CD51E87C7B900D88F68 /* MovingToStorage.swift in Sources */,
 				02630CD91E87CE2E00D88F68 /* Resource.swift in Sources */,
 				020F4F761E7AD938007D723B /* AppDelegate.swift in Sources */,
 				02630CD11E87C4E100D88F68 /* Storage.swift in Sources */,
-				CA7F98A9842F587F7CACD845 /* ObstacleComponent.swift in Sources */,
 				CA7F927175E8C46931DB0743 /* FindingStorage.swift in Sources */,
-				CA7F99D4965612DA235CAA3D /* LabelComponent.swift in Sources */,
-				CA7F981EE8460EDE1F03215F /* ResourceComponent.swift in Sources */,
+				CA7F960661A82AC97B49B299 /* LabelComponent.swift in Sources */,
+				CA7F969EA218416357A34AFB /* MovementComponent.swift in Sources */,
+				CA7F994B53176E14E7446D09 /* ObstacleComponent.swift in Sources */,
+				CA7F94375A6BA4AAEDB73114 /* ResourceComponent.swift in Sources */,
+				CA7F9DED775686E87128385E /* SpriteComponent.swift in Sources */,
+				CA7F9FBFFB79FE8B6EEEFE6B /* CommandComponent.swift in Sources */,
+				CA7F96E7CFB231A215CE4FA7 /* CommandHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,21 +438,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				02B395741E82792C00E6476F /* Rock.swift in Sources */,
-				02B395781E83CFF600E6476F /* MovementComponent.swift in Sources */,
 				02630CCA1E86F13800D88F68 /* ExtractingFromRock.swift in Sources */,
 				02630CC61E86ED2000D88F68 /* FindingRock.swift in Sources */,
 				020F4F931E7AD938007D723B /* GameScene.swift in Sources */,
-				02B395701E7E8E1700E6476F /* SpriteComponent.swift in Sources */,
 				02B3956C1E7E8D5700E6476F /* Bot.swift in Sources */,
 				020F4F861E7AD938007D723B /* GameViewController.swift in Sources */,
 				02630CD61E87C7B900D88F68 /* MovingToStorage.swift in Sources */,
 				02630CDA1E87CE2E00D88F68 /* Resource.swift in Sources */,
 				020F4F841E7AD938007D723B /* AppDelegate.swift in Sources */,
 				02630CD21E87C4E100D88F68 /* Storage.swift in Sources */,
-				CA7F91539B46EF7842D5F43F /* ObstacleComponent.swift in Sources */,
 				CA7F9BAAE726BAEC650F85AD /* FindingStorage.swift in Sources */,
-				CA7F95AF6B1975EB79F671A6 /* LabelComponent.swift in Sources */,
-				CA7F9E37AB8A04F52F0117D6 /* ResourceComponent.swift in Sources */,
+				CA7F9E4A02B3815EB5FC1330 /* LabelComponent.swift in Sources */,
+				CA7F9BBF6A57D1DBEB395BEC /* MovementComponent.swift in Sources */,
+				CA7F9305CD8DBFBAD3760FF3 /* ObstacleComponent.swift in Sources */,
+				CA7F90742504E2C2A4EE45FA /* ResourceComponent.swift in Sources */,
+				CA7F9FA5A13DC394A6853711 /* SpriteComponent.swift in Sources */,
+				CA7F97362D80BCE2CF53CCF9 /* CommandComponent.swift in Sources */,
+				CA7F9870CECA7C6F5CDDD1B3 /* CommandHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,7 +4,7 @@
 //
 
 import Foundation
-import GameKit
+import GameplayKit
 
 class ResourceComponent : GKComponent {
     var resources = [String: Int]()

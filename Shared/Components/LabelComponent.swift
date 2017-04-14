@@ -4,7 +4,7 @@
 //
 
 import Foundation
-import GameKit
+import GameplayKit
 
 class LabelComponent : GKComponent {
     var label: SKLabelNode
@@ -17,6 +17,7 @@ class LabelComponent : GKComponent {
         self.parent = parent
         self.label = SKLabelNode.init(text: "This is a label")
         self.label.position = CGPoint(x: 0, y: 32)
+        self.label.fontName = "American Typewriter"
         super.init()
     }
 
@@ -43,6 +44,7 @@ class LabelComponent : GKComponent {
             var y = lines.count * LINEHEIGHT
             for line in lines {
                 let lineLabel = SKLabelNode(text: line)
+                lineLabel.fontName = self.label.fontName
                 self.extraLines.append(lineLabel)
                 lineLabel.position = CGPoint(x: 0, y: y)
                 self.label.addChild(lineLabel)

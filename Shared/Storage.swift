@@ -7,12 +7,19 @@
 //
 
 import Foundation
-import GameKit
+import GameplayKit
 
-class Storage : GKEntity {
+class Storage : GKEntity, CommandHandler {
     var contents = [String: Int]()
+    var wantResource: String {
+        didSet {
+            self.updateLabel()
+        }
+    }
     
     init(pos: CGPoint) {
+        wantResource = "iron"
+
         super.init()
         let comp = SpriteComponent(name: "storage", color: .yellow, size: CGSize.init(width: 64, height: 64))
         comp.spriteNode.position = pos
@@ -23,6 +30,12 @@ class Storage : GKEntity {
 
         let labelComp = LabelComponent(parent: comp.spriteNode)
         addComponent(labelComp)
+
+        let cmdComp = CommandComponent(parent: comp.spriteNode)
+        cmdComp.add(label: "Gather Iron", command: "gather:iron")
+        cmdComp.add(label: "Gather Copper", command: "gather:copper")
+        cmdComp.add(label: "Gather Zinc", command: "gather:zinc")
+        addComponent(cmdComp)
 
         self.updateLabel()
     }
@@ -54,7 +67,7 @@ class Storage : GKEntity {
         if let labelComp = component(ofType: LabelComponent.self) {
             var text = "Storage:\n"
             if contents.isEmpty {
-                text += "Empty"
+                text += "Empty\n"
             }
             else {
                 for (type, quantity) in contents {
@@ -62,7 +75,16 @@ class Storage : GKEntity {
                     text += line
                 }
             }
+            text += "Wants \(self.wantResource)\n"
             labelComp.setText(text)
+        }
+    }
+
+    func handle(command: String) {
+        var components = command.components(separatedBy: ":")
+        let verb = components[0]
+        if verb == "gather" {
+            self.wantResource = components[1]
         }
     }
 }

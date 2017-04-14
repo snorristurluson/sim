@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import GameKit
+import GameplayKit
 
 class MovementComponent : GKComponent {
     var sprite: SKSpriteNode

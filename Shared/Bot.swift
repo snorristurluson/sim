@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import GameKit
+import GameplayKit
 import SpriteKit
 
 class Bot : GKEntity {

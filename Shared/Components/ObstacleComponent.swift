@@ -4,7 +4,7 @@
 //
 
 import Foundation
-import GameKit
+import GameplayKit
 
 class ObstacleComponent : GKComponent {
     var obstacle: GKPolygonObstacle?

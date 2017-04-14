@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-import GameKit
+import GameplayKit
 
 var world: GameScene? = nil
 var random = GKARC4RandomSource.init()
@@ -18,6 +18,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     fileprivate var bots : Set<Bot> = []
     var entities = Set<GKEntity>()
     var navigationGraph: GKMeshGraph<GKGraphNode2D>?
+    var activeCommandComponent: CommandComponent?
 
     
     class func newGameScene() -> GameScene {
@@ -144,6 +145,13 @@ extension GameScene {
 #if os(OSX)
 // Mouse-based event handling
 extension GameScene {
+    override public func mouseDown(with: NSEvent) {
+        print("MouseDown in scene")
+        if let cmdComp = self.activeCommandComponent {
+            cmdComp.hide()
+            self.activeCommandComponent = nil
+        }
+    }
 }
 #endif
 

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import GameKit
+import GameplayKit
 
 class Rock : GKEntity {
     init(pos: CGPoint) {

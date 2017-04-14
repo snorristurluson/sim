@@ -26,7 +26,9 @@ class MovingToStorageState : GKState {
     override func update(deltaTime seconds: TimeInterval) {
         self.time += seconds
         if self.time > 1.0 {
-            self.bot.moveCargoToStorage(self.bot.target as! Storage)
+            let storage = self.bot.target as! Storage
+            self.bot.moveCargoToStorage(storage)
+            self.bot.resourceTypeWanted = storage.wantResource
             self.bot.stateMachine.enter(FindingRockState.self)
         }
     }
