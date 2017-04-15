@@ -11,6 +11,7 @@ import GameplayKit
 
 var world: GameScene? = nil
 var random = GKARC4RandomSource.init()
+var commandCenter = CommandCenter()
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -39,7 +40,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         return scene
     }
-    
+
+    func findRandomClearSpot(radius: Float) -> CGPoint {
+        while true {
+            let x = Double(random.nextUniform() * Float(self.frame.width - 64) + Float(self.frame.minX + 32))
+            let y = Double(random.nextUniform() * Float(self.frame.height - 64) + Float(self.frame.minY + 32))
+            let pos = CGPoint(x: x, y: y)
+            let entitiesInTheWay = self.findEntitiesNear(pos: pos, radius: radius)
+            if entitiesInTheWay.count == 0 {
+                return pos
+            }
+        }
+    }
+
     func setUpScene() {
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         let min = vector_float2(Float(self.frame.minX - 32), Float(self.frame.minY + 32))
@@ -58,22 +71,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let storage = Storage.init(pos: CGPoint(x: 0, y: -100))
         self.addEntity(entity: storage)
 
-        var rockCount = 0
-        while rockCount < 20 {
-            let x = Double(random.nextUniform() * Float(self.frame.width - 64) + Float(self.frame.minX + 32))
-            let y = Double(random.nextUniform() * Float(self.frame.height - 64) + Float(self.frame.minY + 32))
-            let pos = CGPoint(x: x, y: y)
-            let entitiesInTheWay = self.findEntitiesNear(pos: pos, radius: 24)
-            if entitiesInTheWay.count == 0 {
-                let rock = Rock(pos: pos)
-                self.addEntity(entity: rock)
-                rockCount += 1
-            }
-            else {
-                print("Couldn't place rock - retrying")
-            }
+        for _ in 1...20 {
+            let pos = self.findRandomClearSpot(radius: 24)
+            let rock = Rock(pos: pos)
+            self.addEntity(entity: rock)
         }
-        
+
+        for _ in 1...50 {
+            let pos = self.findRandomClearSpot(radius: 24)
+            let tree = Tree(pos: pos)
+            self.addEntity(entity: tree)
+        }
+
         self.navigationGraph?.triangulate()
 
         let bot1 = Bot.init(name: "bot1", pos: CGPoint.init(x: -100, y: 0 ))

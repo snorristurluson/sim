@@ -37,13 +37,13 @@ class Bot : GKEntity {
         addComponent(movement)
         
         stateMachine = GKStateMachine( states: [
-            FindingRockState(bot: self),
-            ExtractingFromRockState(bot: self),
-            FindingStorageState(bot: self),
-            MovingToStorageState(bot: self)
+                FindingResourceState(bot: self),
+                ExtractingFromEntityState(bot: self),
+                FindingStorageState(bot: self),
+                MovingToStorageState(bot: self)
         ])
         
-        stateMachine.enter(FindingRockState.self)
+        stateMachine.enter(FindingResourceState.self)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -45,33 +45,39 @@
 		02BBB32A1E8C6B2300F77DD8 /* bot.png in Resources */ = {isa = PBXBuildFile; fileRef = 02BBB3281E8C6B1500F77DD8 /* bot.png */; };
 		02BBB32B1E8C6B2400F77DD8 /* bot.png in Resources */ = {isa = PBXBuildFile; fileRef = 02BBB3281E8C6B1500F77DD8 /* bot.png */; };
 		CA7F90742504E2C2A4EE45FA /* ResourceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F930C6C7B91B914AAFC98 /* ResourceComponent.swift */; };
-		CA7F921436C8AD6A790CB151 /* FindingRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9E25BB2FBE060E2234CA /* FindingRock.swift */; };
+		CA7F921436C8AD6A790CB151 /* FindingResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9E25BB2FBE060E2234CA /* FindingResource.swift */; };
 		CA7F9305CD8DBFBAD3760FF3 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9DC0E5B59B7E4B810E09 /* ObstacleComponent.swift */; };
 		CA7F93FDB1F1117E3A15AE2C /* MovingToStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9E6A47A9FBDC2B3A8257 /* MovingToStorage.swift */; };
-		CA7F9413BEC0C90C71B71BE1 /* ExtractingFromRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9AD9266E8F2BCAA5D270 /* ExtractingFromRock.swift */; };
+		CA7F9413BEC0C90C71B71BE1 /* ExtractingFromEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9AD9266E8F2BCAA5D270 /* ExtractingFromEntity.swift */; };
 		CA7F94375A6BA4AAEDB73114 /* ResourceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F930C6C7B91B914AAFC98 /* ResourceComponent.swift */; };
 		CA7F943A452AAD407665BD17 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F98891C1A541C092F6614 /* SpriteComponent.swift */; };
+		CA7F94D8B0B5ED3B7B93B1F3 /* CommandCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9FEC753EDD58F3F95113 /* CommandCenter.swift */; };
 		CA7F956BEEA16B66E10C2953 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9DC0E5B59B7E4B810E09 /* ObstacleComponent.swift */; };
+		CA7F95A5BFEF918DB994303A /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9659648BB63C634BE25D /* Tree.swift */; };
 		CA7F960661A82AC97B49B299 /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A6DAFA2AF3BBA5C5DA0 /* LabelComponent.swift */; };
 		CA7F9689550A10731A643585 /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F98A5928170AC3D437C7E /* MovementComponent.swift */; };
 		CA7F969EA218416357A34AFB /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F98A5928170AC3D437C7E /* MovementComponent.swift */; };
+		CA7F96A4D8AC72BA242DDB9F /* CommandCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9FEC753EDD58F3F95113 /* CommandCenter.swift */; };
 		CA7F96DF35A7E461F6C57B48 /* ResourceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F930C6C7B91B914AAFC98 /* ResourceComponent.swift */; };
 		CA7F96E7CFB231A215CE4FA7 /* CommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A40BBF048976801E7C4 /* CommandHandler.swift */; };
 		CA7F97362D80BCE2CF53CCF9 /* CommandComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9865414983E54B578317 /* CommandComponent.swift */; };
 		CA7F9870CECA7C6F5CDDD1B3 /* CommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A40BBF048976801E7C4 /* CommandHandler.swift */; };
 		CA7F9876F3C8DF4D9092593E /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A6DAFA2AF3BBA5C5DA0 /* LabelComponent.swift */; };
-		CA7F9923D8B481D8AC326ABB /* ExtractingFromRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9AD9266E8F2BCAA5D270 /* ExtractingFromRock.swift */; };
+		CA7F9923D8B481D8AC326ABB /* ExtractingFromEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9AD9266E8F2BCAA5D270 /* ExtractingFromEntity.swift */; };
 		CA7F994B53176E14E7446D09 /* ObstacleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9DC0E5B59B7E4B810E09 /* ObstacleComponent.swift */; };
 		CA7F999DC4A4309A8699660B /* MovingToStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9E6A47A9FBDC2B3A8257 /* MovingToStorage.swift */; };
-		CA7F9AB3E0172E1E1DFF525F /* FindingRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9E25BB2FBE060E2234CA /* FindingRock.swift */; };
+		CA7F9AB3E0172E1E1DFF525F /* FindingResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9E25BB2FBE060E2234CA /* FindingResource.swift */; };
+		CA7F9B1F6E4F5FB394C72DC1 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9659648BB63C634BE25D /* Tree.swift */; };
 		CA7F9B37BC6B5C127AF7BCE1 /* CommandComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9865414983E54B578317 /* CommandComponent.swift */; };
 		CA7F9B9B77F19165CA2FDA58 /* FindingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9685E1F9E92BFA8434F1 /* FindingStorage.swift */; };
 		CA7F9BBF6A57D1DBEB395BEC /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F98A5928170AC3D437C7E /* MovementComponent.swift */; };
-		CA7F9C21E9FF14891DED2C72 /* ExtractingFromRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9AD9266E8F2BCAA5D270 /* ExtractingFromRock.swift */; };
+		CA7F9C21E9FF14891DED2C72 /* ExtractingFromEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9AD9266E8F2BCAA5D270 /* ExtractingFromEntity.swift */; };
+		CA7F9C2CA9AF4A176981AF07 /* CommandCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9FEC753EDD58F3F95113 /* CommandCenter.swift */; };
 		CA7F9CF78A559372FE0AC985 /* FindingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9685E1F9E92BFA8434F1 /* FindingStorage.swift */; };
-		CA7F9D7C96284DECF0BB8572 /* FindingRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9E25BB2FBE060E2234CA /* FindingRock.swift */; };
+		CA7F9D7C96284DECF0BB8572 /* FindingResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9E25BB2FBE060E2234CA /* FindingResource.swift */; };
 		CA7F9DED775686E87128385E /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F98891C1A541C092F6614 /* SpriteComponent.swift */; };
 		CA7F9E4A02B3815EB5FC1330 /* LabelComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A6DAFA2AF3BBA5C5DA0 /* LabelComponent.swift */; };
+		CA7F9E8762585F839715AB19 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9659648BB63C634BE25D /* Tree.swift */; };
 		CA7F9F051FC822B6E8B9B53B /* CommandHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9A40BBF048976801E7C4 /* CommandHandler.swift */; };
 		CA7F9F80985F7D61A2221E8D /* FindingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9685E1F9E92BFA8434F1 /* FindingStorage.swift */; };
 		CA7F9FA1A7342CFC739B85AB /* MovingToStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA7F9E6A47A9FBDC2B3A8257 /* MovingToStorage.swift */; };
@@ -106,16 +112,18 @@
 		02B395711E82792C00E6476F /* Rock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
 		02BBB3281E8C6B1500F77DD8 /* bot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bot.png; sourceTree = "<group>"; };
 		CA7F930C6C7B91B914AAFC98 /* ResourceComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceComponent.swift; sourceTree = "<group>"; };
+		CA7F9659648BB63C634BE25D /* Tree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
 		CA7F9685E1F9E92BFA8434F1 /* FindingStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindingStorage.swift; sourceTree = "<group>"; };
 		CA7F9865414983E54B578317 /* CommandComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandComponent.swift; sourceTree = "<group>"; };
 		CA7F98891C1A541C092F6614 /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		CA7F98A5928170AC3D437C7E /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		CA7F9A40BBF048976801E7C4 /* CommandHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandHandler.swift; sourceTree = "<group>"; };
 		CA7F9A6DAFA2AF3BBA5C5DA0 /* LabelComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelComponent.swift; sourceTree = "<group>"; };
-		CA7F9AD9266E8F2BCAA5D270 /* ExtractingFromRock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractingFromRock.swift; sourceTree = "<group>"; };
+		CA7F9AD9266E8F2BCAA5D270 /* ExtractingFromEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractingFromEntity.swift; sourceTree = "<group>"; };
 		CA7F9DC0E5B59B7E4B810E09 /* ObstacleComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleComponent.swift; sourceTree = "<group>"; };
-		CA7F9E25BB2FBE060E2234CA /* FindingRock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindingRock.swift; sourceTree = "<group>"; };
+		CA7F9E25BB2FBE060E2234CA /* FindingResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindingResource.swift; sourceTree = "<group>"; };
 		CA7F9E6A47A9FBDC2B3A8257 /* MovingToStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovingToStorage.swift; sourceTree = "<group>"; };
+		CA7F9FEC753EDD58F3F95113 /* CommandCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandCenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +177,8 @@
 				CA7F9E99CA319582B6DF46AE /* Components */,
 				CA7F9A40BBF048976801E7C4 /* CommandHandler.swift */,
 				CA7F9D91740D0C6AE5E9692A /* BotStates */,
+				CA7F9659648BB63C634BE25D /* Tree.swift */,
+				CA7F9FEC753EDD58F3F95113 /* CommandCenter.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -220,9 +230,9 @@
 		CA7F9D91740D0C6AE5E9692A /* BotStates */ = {
 			isa = PBXGroup;
 			children = (
-				CA7F9E25BB2FBE060E2234CA /* FindingRock.swift */,
+				CA7F9E25BB2FBE060E2234CA /* FindingResource.swift */,
 				CA7F9685E1F9E92BFA8434F1 /* FindingStorage.swift */,
-				CA7F9AD9266E8F2BCAA5D270 /* ExtractingFromRock.swift */,
+				CA7F9AD9266E8F2BCAA5D270 /* ExtractingFromEntity.swift */,
 				CA7F9E6A47A9FBDC2B3A8257 /* MovingToStorage.swift */,
 			);
 			path = BotStates;
@@ -401,10 +411,12 @@
 				CA7F943A452AAD407665BD17 /* SpriteComponent.swift in Sources */,
 				CA7F9B37BC6B5C127AF7BCE1 /* CommandComponent.swift in Sources */,
 				CA7F9F051FC822B6E8B9B53B /* CommandHandler.swift in Sources */,
-				CA7F9D7C96284DECF0BB8572 /* FindingRock.swift in Sources */,
+				CA7F9D7C96284DECF0BB8572 /* FindingResource.swift in Sources */,
 				CA7F9B9B77F19165CA2FDA58 /* FindingStorage.swift in Sources */,
-				CA7F9C21E9FF14891DED2C72 /* ExtractingFromRock.swift in Sources */,
+				CA7F9C21E9FF14891DED2C72 /* ExtractingFromEntity.swift in Sources */,
 				CA7F93FDB1F1117E3A15AE2C /* MovingToStorage.swift in Sources */,
+				CA7F9B1F6E4F5FB394C72DC1 /* Tree.swift in Sources */,
+				CA7F94D8B0B5ED3B7B93B1F3 /* CommandCenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,10 +438,12 @@
 				CA7F9DED775686E87128385E /* SpriteComponent.swift in Sources */,
 				CA7F9FBFFB79FE8B6EEEFE6B /* CommandComponent.swift in Sources */,
 				CA7F96E7CFB231A215CE4FA7 /* CommandHandler.swift in Sources */,
-				CA7F921436C8AD6A790CB151 /* FindingRock.swift in Sources */,
+				CA7F921436C8AD6A790CB151 /* FindingResource.swift in Sources */,
 				CA7F9F80985F7D61A2221E8D /* FindingStorage.swift in Sources */,
-				CA7F9413BEC0C90C71B71BE1 /* ExtractingFromRock.swift in Sources */,
+				CA7F9413BEC0C90C71B71BE1 /* ExtractingFromEntity.swift in Sources */,
 				CA7F999DC4A4309A8699660B /* MovingToStorage.swift in Sources */,
+				CA7F9E8762585F839715AB19 /* Tree.swift in Sources */,
+				CA7F9C2CA9AF4A176981AF07 /* CommandCenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,10 +465,12 @@
 				CA7F9FA5A13DC394A6853711 /* SpriteComponent.swift in Sources */,
 				CA7F97362D80BCE2CF53CCF9 /* CommandComponent.swift in Sources */,
 				CA7F9870CECA7C6F5CDDD1B3 /* CommandHandler.swift in Sources */,
-				CA7F9AB3E0172E1E1DFF525F /* FindingRock.swift in Sources */,
+				CA7F9AB3E0172E1E1DFF525F /* FindingResource.swift in Sources */,
 				CA7F9CF78A559372FE0AC985 /* FindingStorage.swift in Sources */,
-				CA7F9923D8B481D8AC326ABB /* ExtractingFromRock.swift in Sources */,
+				CA7F9923D8B481D8AC326ABB /* ExtractingFromEntity.swift in Sources */,
 				CA7F9FA1A7342CFC739B85AB /* MovingToStorage.swift in Sources */,
+				CA7F95A5BFEF918DB994303A /* Tree.swift in Sources */,
+				CA7F96A4D8AC72BA242DDB9F /* CommandCenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

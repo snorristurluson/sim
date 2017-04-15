@@ -28,14 +28,13 @@ class MovingToStorageState : GKState {
         if self.time > 1.0 {
             let storage = self.bot.target as! Storage
             self.bot.moveCargoToStorage(storage)
-            self.bot.resourceTypeWanted = storage.wantResource
-            self.bot.stateMachine.enter(FindingRockState.self)
+            commandCenter.getAssignment(bot: self.bot)
         }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         switch stateClass {
-        case is FindingRockState.Type:
+        case is FindingResourceState.Type:
             return true
         default:
             return false

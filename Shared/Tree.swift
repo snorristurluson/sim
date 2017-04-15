@@ -9,10 +9,10 @@
 import Foundation
 import GameplayKit
 
-class Rock : GKEntity {
+class Tree : GKEntity {
     init(pos: CGPoint) {
         super.init()
-        let comp = SpriteComponent(name: "rock", color: .red, size: CGSize.init(width: 32, height: 32))
+        let comp = SpriteComponent(name: "tree", color: .green, size: CGSize.init(width: 16, height: 16))
         comp.spriteNode.position = pos
         comp.spriteNode.physicsBody?.isDynamic = false
         addComponent(comp)
@@ -23,16 +23,15 @@ class Rock : GKEntity {
 
         let resourceComp = ResourceComponent()
         addComponent(resourceComp)
-        resourceComp.resources["iron"] = random.nextInt(upperBound: 5)
-        resourceComp.resources["copper"] = random.nextInt(upperBound: 5)
-        resourceComp.resources["zinc"] = random.nextInt(upperBound: 5)
+        resourceComp.resources["wood"] = random.nextInt(upperBound: 5)
+        resourceComp.resources["firewood"] = random.nextInt(upperBound: 5)
         self.updateLabel()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func getPosition()-> CGPoint {
         let comp = component(ofType: SpriteComponent.self)
         return (comp?.spriteNode.position)!
@@ -40,7 +39,7 @@ class Rock : GKEntity {
 
     func updateLabel() {
         if let labelComp = component(ofType: LabelComponent.self), let resourceComp = component(ofType: ResourceComponent.self) {
-            var text = "Rock:\n"
+            var text = "Tree:\n"
             if resourceComp.resources.isEmpty {
                 text += "Empty"
             }
