@@ -54,15 +54,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 maxCoordinate: max
         )
         self.navigationGraph?.triangulationMode = [.vertices, .centers, .edgeMidpoints]
-        for _ in 1...20 {
-            let x = Double(random.nextUniform() * Float(self.frame.width - 64) + Float(self.frame.minX + 32))
-            let y = Double(random.nextUniform() * Float(self.frame.height - 64) + Float(self.frame.minY + 32))
-            let rock = Rock(pos: CGPoint.init(x: x, y: y))
-            self.addEntity(entity: rock)
-        }
-        
+
         let storage = Storage.init(pos: CGPoint(x: 0, y: -100))
         self.addEntity(entity: storage)
+
+        var rockCount = 0
+        while rockCount < 20 {
+            let x = Double(random.nextUniform() * Float(self.frame.width - 64) + Float(self.frame.minX + 32))
+            let y = Double(random.nextUniform() * Float(self.frame.height - 64) + Float(self.frame.minY + 32))
+            let pos = CGPoint(x: x, y: y)
+            let entitiesInTheWay = self.findEntitiesNear(pos: pos, radius: 24)
+            if entitiesInTheWay.count == 0 {
+                let rock = Rock(pos: pos)
+                self.addEntity(entity: rock)
+                rockCount += 1
+            }
+            else {
+                print("Couldn't place rock - retrying")
+            }
+        }
         
         self.navigationGraph?.triangulate()
 
@@ -157,8 +167,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 points.append(spritePos)
                 points.append(pos)
             }
-            self.entitiesNearCursorRenderer = SKShapeNode(points: &points, count: points.count)
-            self.addChild(self.entitiesNearCursorRenderer!)
+            let renderer = SKShapeNode(points: &points, count: points.count)
+            renderer.zPosition = -1.0
+            self.addChild(renderer)
+            self.entitiesNearCursorRenderer = renderer
         }
     }
     
@@ -217,9 +229,11 @@ extension GameScene {
         if let cursorNode = self.buildCursor {
             cursorNode.position = posInScene
         } else {
-            self.buildCursor = SKShapeNode(circleOfRadius: 64)
-            self.buildCursor!.position = posInScene
-            self.addChild(self.buildCursor!)
+            let cursor = SKShapeNode(circleOfRadius: 64)
+            cursor.zPosition = -1.0
+            cursor.position = posInScene
+            self.addChild(cursor)
+            self.buildCursor = cursor
         }
 
         self.showEntitiesNear(pos: posInScene, radius: 64)

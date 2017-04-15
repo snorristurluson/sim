@@ -14,7 +14,7 @@ class CommandComponent : GKComponent {
     var rootNode: SKSpriteNode
     var trackingAreas = [NSTrackingArea]()
 
-    let LINEHEIGHT = CGFloat(40)
+    let LINEHEIGHT = CGFloat(60)
     let trackingAreaOptions = [NSTrackingAreaOptions.mouseEnteredAndExited, NSTrackingAreaOptions.activeInKeyWindow]
         as NSTrackingAreaOptions
 
@@ -42,25 +42,21 @@ class CommandComponent : GKComponent {
         self.rootNode.position = CGPoint(x: 0, y: top / 2)
         self.parent.addChild(self.rootNode)
 
-        var frame = self.rootNode.calculateAccumulatedFrame()
-        var origin = view.convert(frame.origin, from: scene)
-        frame.size.height = LINEHEIGHT - 4
-
         let handler = self.entity as! CommandHandler
 
-        var y = top / 2 - 4
+        var y = (top - LINEHEIGHT) / 2
         for (label, cmd) in self.commands {
-            let cmdNode = CommandNode.init(text: label, command: cmd, handler: handler, owner: self)
-            cmdNode.position = CGPoint(x: 0, y: y)
+            let cmdNode = CommandNode(text: label, command: cmd, handler: handler, owner: self)
             self.rootNode.addChild(cmdNode)
+            cmdNode.position = CGPoint(x: 0, y: y)
 
-            frame.origin = origin
+            var frame = cmdNode.calculateAccumulatedFrame()
+            frame.origin = view.convert(frame.origin, from: scene)
             let trackingArea = NSTrackingArea(rect:frame, options: trackingAreaOptions, owner:cmdNode, userInfo:nil)
             self.trackingAreas.append(trackingArea)
             view.addTrackingArea(trackingArea)
 
             y -= LINEHEIGHT
-            origin.y -= LINEHEIGHT
         }
 
         world!.activeCommandComponent = self
@@ -96,7 +92,8 @@ class CommandNode : SKLabelNode {
         self.highlightColor = .red
 
         super.init()
-        self.verticalAlignmentMode = .top
+        self.verticalAlignmentMode = .center
+        self.horizontalAlignmentMode = .center
         self.fontName = "American Typewriter"
         self.text = text
         self.fontColor = self.regularColor
