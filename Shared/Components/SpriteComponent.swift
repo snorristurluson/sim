@@ -101,4 +101,17 @@ class SpriteComponent : GKComponent {
             view.removeTrackingArea(trackingArea)
         }
     }
+
+    func addToQuadTree(tree: GKQuadtree<GKEntity>) {
+        let frame = self.spriteNode.calculateAccumulatedFrame()
+        let min = vector_float2(Float(frame.origin.x), Float(frame.origin.y))
+        var max = min
+        max.x += Float(frame.width)
+        max.y += Float(frame.height)
+        tree.add(self.entity!, in: GKQuad(quadMin: min, quadMax: max))
+    }
+
+    func removeFromQuadTree(tree: GKQuadtree<GKEntity>) {
+        tree.remove(self.entity!)
+    }
 }

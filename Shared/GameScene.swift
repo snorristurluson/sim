@@ -17,8 +17,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     fileprivate var bots : Set<Bot> = []
     var entities = Set<GKEntity>()
+    var entitiesQuadTree: GKQuadtree<GKEntity>?
     var navigationGraph: GKMeshGraph<GKGraphNode2D>?
     var activeCommandComponent: CommandComponent?
+    var entitiesNearCursorRenderer: SKShapeNode?
+    var buildCursor: SKShapeNode?
 
     
     class func newGameScene() -> GameScene {
@@ -39,10 +42,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setUpScene() {
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        let min = vector_float2(Float(self.frame.minX - 32), Float(self.frame.minY + 32))
+        let max = vector_float2(Float(self.frame.maxX - 32), Float(self.frame.maxY + 32))
+        self.entitiesQuadTree = GKQuadtree<GKEntity>(
+                boundingQuad: GKQuad(quadMin: min, quadMax: max),
+                minimumCellSize: 64
+        )
         self.navigationGraph = GKMeshGraph<GKGraphNode2D>(
                 bufferRadius: 16,
-                minCoordinate: vector_float2(Float(self.frame.minX - 32), Float(self.frame.minY + 32)),
-                maxCoordinate: vector_float2(Float(self.frame.maxX - 32), Float(self.frame.maxY + 32))
+                minCoordinate: min,
+                maxCoordinate: max
         )
         self.navigationGraph?.triangulationMode = [.vertices, .centers, .edgeMidpoints]
         for _ in 1...20 {
@@ -72,7 +81,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.setUpScene()
 
         let options = [NSTrackingAreaOptions.mouseMoved, NSTrackingAreaOptions.activeInKeyWindow] as NSTrackingAreaOptions
-        print(view.frame)
         let trackingArea = NSTrackingArea(rect:view.frame,options:options,owner:self,userInfo:nil)
         view.addTrackingArea(trackingArea)
     }
@@ -80,6 +88,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addEntity(entity: GKEntity) {
         if let spriteComp = entity.component(ofType: SpriteComponent.self) {
             spriteComp.addToScene(scene: self)
+            spriteComp.addToQuadTree(tree: self.entitiesQuadTree!)
         }
         if let obstacleComp = entity.component(ofType: ObstacleComponent.self) {
             let obstacle = obstacleComp.obstacle
@@ -93,6 +102,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func removeEntity(entity: GKEntity) {
         if let spriteComp = entity.component(ofType: SpriteComponent.self) {
             spriteComp.removeFromScene(scene: self)
+            spriteComp.removeFromQuadTree(tree: self.entitiesQuadTree!)
         }
         if let obstacleComp = entity.component(ofType: ObstacleComponent.self) {
             let obstacle = obstacleComp.obstacle
@@ -102,6 +112,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         self.entities.remove(entity)
+    }
+
+    func findEntitiesNear(pos: CGPoint, radius: Float) -> [GKEntity] {
+        var min = vector_float2(Float(pos.x), Float(pos.y))
+        var max = min
+        let extendedRadius = radius + 64
+        min.x -= extendedRadius
+        min.y -= extendedRadius
+        max.x += extendedRadius
+        max.y += extendedRadius
+
+        let candidatesNear = self.entitiesQuadTree!.elements(in: GKQuad(quadMin: min, quadMax: max))
+        var entitiesNear = [GKEntity]()
+        if candidatesNear.count > 0 {
+            for candidate in candidatesNear {
+                if let spriteComp = candidate.component(ofType: SpriteComponent.self) {
+                    let spritePos = spriteComp.spriteNode.position
+                    let spriteWidth = spriteComp.spriteNode.frame.width
+                    let distance = CGPointDistance(from: pos, to: spritePos) - spriteWidth / 2
+                    if(distance <= CGFloat(radius)) {
+                        entitiesNear.append(candidate)
+                    }
+                }
+            }
+        }
+
+        return entitiesNear
+    }
+
+    func showEntitiesNear(pos: CGPoint, radius: Float) {
+        if let shapeNode = self.entitiesNearCursorRenderer {
+            shapeNode.removeFromParent()
+        }
+
+        let entitiesNear = self.findEntitiesNear(pos: pos, radius: radius)
+        if entitiesNear.count > 0 {
+            var points = [CGPoint]()
+            for entity in entitiesNear {
+                let spriteComp = entity.component(ofType: SpriteComponent.self)!
+                let spritePos = spriteComp.spriteNode.position
+
+                points.append(pos)
+                points.append(spritePos)
+                points.append(pos)
+            }
+            self.entitiesNearCursorRenderer = SKShapeNode(points: &points, count: points.count)
+            self.addChild(self.entitiesNearCursorRenderer!)
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -151,6 +209,20 @@ extension GameScene {
             cmdComp.hide()
             self.activeCommandComponent = nil
         }
+    }
+
+    override public func mouseMoved(with: NSEvent) {
+        let posInScene = self.convertPoint(fromView: with.locationInWindow)
+
+        if let cursorNode = self.buildCursor {
+            cursorNode.position = posInScene
+        } else {
+            self.buildCursor = SKShapeNode(circleOfRadius: 64)
+            self.buildCursor!.position = posInScene
+            self.addChild(self.buildCursor!)
+        }
+
+        self.showEntitiesNear(pos: posInScene, radius: 64)
     }
 }
 #endif
