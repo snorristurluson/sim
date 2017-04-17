@@ -16,9 +16,7 @@ class Bot : GKEntity {
     var resourceTypeWanted = "iron"
     weak var target: GKEntity?
     var contact = Set<GKEntity>()
-    var proximity = Set<GKEntity>()
-    var proximityRenderer: SKShapeNode?
-    
+
     var stateMachine: GKStateMachine!
     
     var cargo = [Resource]()
@@ -148,11 +146,10 @@ class Bot : GKEntity {
         if let movementComp = component(ofType: MovementComponent.self) {
             movementComp.update(deltaTime: seconds)
         }
-        if let proximityComp = component(ofType: ProximityComponent.self), let spriteComp = component(ofType: SpriteComponent.self) {
-            proximityComp.spriteNode.position = spriteComp.spriteNode.position
+        if let proximityComp = component(ofType: ProximityComponent.self) {
+            proximityComp.update(deltaTime: seconds)
         }
         self.stateMachine.update(deltaTime: seconds)
-        self.updateProximityRenderer()
     }
 
     func addContact(other: GKEntity) {
@@ -164,27 +161,15 @@ class Bot : GKEntity {
     }
 
     func addProximity(other: GKEntity) {
-        self.proximity.insert(other)
+        if let proximityComp = component(ofType: ProximityComponent.self) {
+            proximityComp.proximity.insert(other)
+        }
     }
 
     func removeProximity(other: GKEntity) {
-        self.proximity.remove(other)
+        if let proximityComp = component(ofType: ProximityComponent.self) {
+            proximityComp.proximity.remove(other)
+        }
     }
 
-    func updateProximityRenderer() {
-        if let current = self.proximityRenderer {
-            current.removeFromParent()
-        }
-        let myPos = self.getPosition()
-        var points = [CGPoint]()
-        for entity in self.proximity {
-            if let spriteComp = entity.component(ofType: SpriteComponent.self) {
-                var otherPos = spriteComp.spriteNode.position
-                points.append(myPos)
-                points.append(otherPos)
-            }
-        }
-        self.proximityRenderer = SKShapeNode(points: &points, count: points.count)
-        world!.addChild(self.proximityRenderer!)
-    }
 }

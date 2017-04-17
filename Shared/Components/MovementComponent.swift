@@ -63,6 +63,9 @@ class MovementComponent : GKComponent {
     }
     
     override func update(deltaTime seconds: TimeInterval) {
+        let currentVelocity = (self.sprite.physicsBody?.velocity)!
+        let currentHeading = atan2(currentVelocity.dy, currentVelocity.dx)
+
         let currentPosition = self.sprite.position
         var waypoint = self.path[self.currentWaypoint] as! GKGraphNode2D
         var targetPosition = waypoint.position
@@ -78,8 +81,6 @@ class MovementComponent : GKComponent {
         }
         let vn = CGVectorNormalize(v: v)
         let desiredVelocity = CGVector.init(dx: vn.dx * self.speed, dy: vn.dy * self.speed)
-        let currentVelocity = (self.sprite.physicsBody?.velocity)!
-        let currentHeading = atan2(currentVelocity.dy, currentVelocity.dx)
 
         self.sprite.zRotation = currentHeading
 
