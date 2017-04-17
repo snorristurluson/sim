@@ -26,12 +26,16 @@ class Bot : GKEntity {
         
         super.init()
 
-        let comp = SpriteComponent(name: "bot", imageNamed: "bot.png")
+        let comp = SpriteComponent(name: "bot", imageNamed: "bot.png", category: BOT)
         comp.spriteNode.position = pos
         comp.spriteNode.physicsBody?.mass = 10
         addComponent(comp)
 
         addComponent(GKSKNodeComponent(node: comp.spriteNode))
+
+        let proximityComp = ProximityComponent(name: "bot_proximity", radius: 64)
+        addComponent(proximityComp)
+        addComponent(GKSKNodeComponent(node: proximityComp.spriteNode))
 
         let movement = MovementComponent(body: comp.spriteNode)
         addComponent(movement)
@@ -137,9 +141,22 @@ class Bot : GKEntity {
         }
         return false
     }
-    
+
+    override func update(deltaTime seconds: TimeInterval) {
+        if let movementComp = component(ofType: MovementComponent.self) {
+            movementComp.update(deltaTime: seconds)
+        }
+        if let proximityComp = component(ofType: ProximityComponent.self), let spriteComp = component(ofType: SpriteComponent.self) {
+            proximityComp.spriteNode.position = spriteComp.spriteNode.position
+        }
+        self.stateMachine.update(deltaTime: seconds)
+    }
+
     func HandleContact(other: GKEntity?) {
         self.contact = other
     }
-    
+
+    func handleProximity(other: GKEntity?) {
+        print(self.name, "close to", other)
+    }
 }

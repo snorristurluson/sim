@@ -21,7 +21,7 @@ class Storage : GKEntity, CommandHandler {
         wantResource = "iron"
 
         super.init()
-        let comp = SpriteComponent(name: "storage", color: .yellow, size: CGSize.init(width: 64, height: 64))
+        let comp = SpriteComponent(name: "storage", color: .yellow, size: CGSize.init(width: 64, height: 64), category: BUILDING)
         comp.spriteNode.position = pos
         comp.spriteNode.physicsBody?.isDynamic = false
         addComponent(comp)

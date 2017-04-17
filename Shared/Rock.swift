@@ -12,7 +12,7 @@ import GameplayKit
 class Rock : GKEntity {
     init(pos: CGPoint) {
         super.init()
-        let comp = SpriteComponent(name: "rock", color: .red, size: CGSize.init(width: 32, height: 32))
+        let comp = SpriteComponent(name: "rock", color: .red, size: CGSize.init(width: 32, height: 32), category: RESOURCE)
         comp.spriteNode.position = pos
         comp.spriteNode.physicsBody?.isDynamic = false
         addComponent(comp)

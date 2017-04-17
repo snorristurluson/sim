@@ -13,6 +13,11 @@ var world: GameScene? = nil
 var random = GKARC4RandomSource.init()
 var commandCenter = CommandCenter()
 
+let BOT = UInt32(0x1)
+let RESOURCE = UInt32(0x2)
+let BUILDING = UInt32(0x4)
+let PROXIMITY = UInt32(0x8)
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
@@ -109,6 +114,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteComp.addToScene(scene: self)
             spriteComp.addToQuadTree(tree: self.entitiesQuadTree!)
         }
+        if let proximityComp = entity.component(ofType: ProximityComponent.self) {
+            proximityComp.addToScene(scene: self)
+        }
         if let obstacleComp = entity.component(ofType: ObstacleComponent.self) {
             let obstacle = obstacleComp.obstacle
             if obstacle != nil {
@@ -122,6 +130,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let spriteComp = entity.component(ofType: SpriteComponent.self) {
             spriteComp.removeFromScene(scene: self)
             spriteComp.removeFromQuadTree(tree: self.entitiesQuadTree!)
+        }
+        if let proximityComp = entity.component(ofType: ProximityComponent.self) {
+            proximityComp.removeFromScene(scene: self)
         }
         if let obstacleComp = entity.component(ofType: ObstacleComponent.self) {
             let obstacle = obstacleComp.obstacle
@@ -187,17 +198,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let dt = 0.01666
         // Called before each frame is rendered
         for bot in self.bots {
-            let comp = bot.component(ofType: MovementComponent.self)
-            if (comp != nil) {
-                comp?.update(deltaTime: dt)
-            }
-            bot.stateMachine.update(deltaTime: dt)
+            bot.update(deltaTime: dt)
         }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        var bot: Bot? = nil
-        var other: GKEntity? = nil
+        var bot: Bot?
+        var bot_proximity: Bot?
+        var other: GKEntity?
         if contact.bodyA.node?.name == "bot" {
             bot = contact.bodyA.node?.entity as? Bot
             other = contact.bodyB.node?.entity
@@ -209,6 +217,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if bot != nil {
             bot?.HandleContact(other: other)
         }
+        if contact.bodyA.node?.name == "bot_proximity" {
+            bot_proximity = contact.bodyA.node?.entity as? Bot
+            other = contact.bodyB.node?.entity
+        }
+        else if contact.bodyB.node?.name == "bot_proximity" {
+            bot_proximity = contact.bodyB.node?.entity as? Bot
+            other = contact.bodyA.node?.entity
+        }
+        if bot_proximity != nil {
+            bot_proximity?.handleProximity(other: other)
+        }
+
     }
 }
 

@@ -12,7 +12,7 @@ import GameplayKit
 class Tree : GKEntity {
     init(pos: CGPoint) {
         super.init()
-        let comp = SpriteComponent(name: "tree", color: .green, size: CGSize.init(width: 16, height: 16))
+        let comp = SpriteComponent(name: "tree", color: .green, size: CGSize.init(width: 16, height: 16), category: RESOURCE)
         comp.spriteNode.position = pos
         comp.spriteNode.physicsBody?.isDynamic = false
         addComponent(comp)

@@ -54,26 +54,30 @@ class SpriteComponent : GKComponent {
     let spriteNode : SKSpriteNode
     var trackingArea : NSTrackingArea?
     
-    init(name: String, color: SKColor, size: CGSize) {
+    init(name: String, color: SKColor, size: CGSize, category: UInt32) {
         self.spriteNode = InteractiveSpriteNode.init(color: color, size: size)
         self.spriteNode.name = name
         let radius = size.width / 2
         let physicsBody = SKPhysicsBody.init(circleOfRadius: radius)
         self.spriteNode.physicsBody = physicsBody
-        physicsBody.contactTestBitMask = physicsBody.collisionBitMask
+        physicsBody.categoryBitMask = category
+        physicsBody.contactTestBitMask = 0xffffffff
+        physicsBody.collisionBitMask = BOT|RESOURCE|BUILDING
         physicsBody.allowsRotation = false
 
         super.init()
     }
 
-    init(name: String, imageNamed: String) {
+    init(name: String, imageNamed: String, category: UInt32) {
         self.spriteNode = SKSpriteNode.init(imageNamed: imageNamed)
         self.spriteNode.name = name
 
         let radius = self.spriteNode.size.width / 2
         let physicsBody = SKPhysicsBody.init(circleOfRadius: radius)
+        physicsBody.categoryBitMask = category
+        physicsBody.contactTestBitMask = 0xffffffff
+        physicsBody.collisionBitMask = BOT|RESOURCE|BUILDING
         self.spriteNode.physicsBody = physicsBody
-        physicsBody.contactTestBitMask = physicsBody.collisionBitMask
 
         super.init()
     }
