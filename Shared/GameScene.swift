@@ -73,8 +73,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         )
         self.navigationGraph?.triangulationMode = [.vertices, .centers, .edgeMidpoints]
 
-        let storage = Storage.init(pos: CGPoint(x: 0, y: -100))
-        self.addEntity(entity: storage)
+        for _ in 1...1 {
+            let pos = self.findRandomClearSpot(radius: 32)
+            let storage = Storage.init(pos: pos)
+            self.addEntity(entity: storage)
+        }
 
         for _ in 1...20 {
             let pos = self.findRandomClearSpot(radius: 24)
@@ -90,14 +93,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         self.navigationGraph?.triangulate()
 
-        let bot1 = Bot.init(name: "bot1", pos: CGPoint.init(x: -100, y: 0 ))
-        self.addEntity(entity: bot1)
-        self.bots.insert(bot1)
-        
-        let bot2 = Bot.init(name: "bot2", pos: CGPoint.init(x: 100, y: 0 ))
-        self.addEntity(entity: bot2)
-        self.bots.insert(bot2)
-        
+        for ix in 1...3 {
+            let pos = self.findRandomClearSpot(radius: 24)
+            let name = "bot" + String(ix)
+            let bot = Bot.init(name: name, pos: pos)
+            self.addEntity(entity: bot)
+            self.bots.insert(bot)
+        }
     }
     
     override func didMove(to view: SKView) {
@@ -214,8 +216,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bot = contact.bodyB.node?.entity as? Bot
             other = contact.bodyA.node?.entity
         }
-        if bot != nil {
-            bot?.HandleContact(other: other)
+        if bot != nil && other != nil {
+            bot?.addContact(other: other!)
         }
         if contact.bodyA.node?.name == "bot_proximity" {
             bot_proximity = contact.bodyA.node?.entity as? Bot
@@ -225,10 +227,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bot_proximity = contact.bodyB.node?.entity as? Bot
             other = contact.bodyA.node?.entity
         }
-        if bot_proximity != nil {
-            bot_proximity?.handleProximity(other: other)
+        if bot_proximity != nil && other != nil {
+            bot_proximity?.addProximity(other: other!)
         }
+    }
 
+    func didEnd(_ contact: SKPhysicsContact) {
+        var bot: Bot?
+        var bot_proximity: Bot?
+        var other: GKEntity?
+        if contact.bodyA.node?.name == "bot" {
+            bot = contact.bodyA.node?.entity as? Bot
+            other = contact.bodyB.node?.entity
+        }
+        else if contact.bodyB.node?.name == "bot" {
+            bot = contact.bodyB.node?.entity as? Bot
+            other = contact.bodyA.node?.entity
+        }
+        if bot != nil && other != nil {
+            bot?.removeContact(other: other!)
+        }
+        if contact.bodyA.node?.name == "bot_proximity" {
+            bot_proximity = contact.bodyA.node?.entity as? Bot
+            other = contact.bodyB.node?.entity
+        }
+        else if contact.bodyB.node?.name == "bot_proximity" {
+            bot_proximity = contact.bodyB.node?.entity as? Bot
+            other = contact.bodyA.node?.entity
+        }
+        if bot_proximity != nil && other != nil {
+            bot_proximity?.removeProximity(other: other!)
+        }
     }
 }
 

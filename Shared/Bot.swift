@@ -15,7 +15,9 @@ class Bot : GKEntity {
     var name: String
     var resourceTypeWanted = "iron"
     weak var target: GKEntity?
-    weak var contact: GKEntity?
+    var contact = Set<GKEntity>()
+    var proximity = Set<GKEntity>()
+    var proximityRenderer: SKShapeNode?
     
     var stateMachine: GKStateMachine!
     
@@ -150,13 +152,39 @@ class Bot : GKEntity {
             proximityComp.spriteNode.position = spriteComp.spriteNode.position
         }
         self.stateMachine.update(deltaTime: seconds)
+        self.updateProximityRenderer()
     }
 
-    func HandleContact(other: GKEntity?) {
-        self.contact = other
+    func addContact(other: GKEntity) {
+        self.contact.insert(other)
     }
 
-    func handleProximity(other: GKEntity?) {
-        print(self.name, "close to", other)
+    func removeContact(other: GKEntity) {
+        self.contact.remove(other)
+    }
+
+    func addProximity(other: GKEntity) {
+        self.proximity.insert(other)
+    }
+
+    func removeProximity(other: GKEntity) {
+        self.proximity.remove(other)
+    }
+
+    func updateProximityRenderer() {
+        if let current = self.proximityRenderer {
+            current.removeFromParent()
+        }
+        let myPos = self.getPosition()
+        var points = [CGPoint]()
+        for entity in self.proximity {
+            if let spriteComp = entity.component(ofType: SpriteComponent.self) {
+                var otherPos = spriteComp.spriteNode.position
+                points.append(myPos)
+                points.append(otherPos)
+            }
+        }
+        self.proximityRenderer = SKShapeNode(points: &points, count: points.count)
+        world!.addChild(self.proximityRenderer!)
     }
 }

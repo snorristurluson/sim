@@ -26,14 +26,18 @@ class FindingStorageState : GKState {
     }
 
     override func update(deltaTime seconds: TimeInterval) {
-        if self.bot.contact == self.bot.target {
+        if self.bot.target == nil {
+            print("Target lost")
+            commandCenter.getAssignment(bot: self.bot)
+        }
+        else if self.bot.contact.contains(self.bot.target!) {
             self.bot.stateMachine.enter(MovingToStorageState.self)
         }
     }
 
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         switch stateClass {
-        case is MovingToStorageState.Type:
+        case is MovingToStorageState.Type, is FindingResourceState.Type:
             return true
         default:
             return false

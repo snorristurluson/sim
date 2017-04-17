@@ -32,7 +32,7 @@ class FindingResourceState: GKState {
             print("Target lost")
             commandCenter.getAssignment(bot: self.bot)
         }
-        else if self.bot.contact == self.bot.target {
+        else if self.bot.contact.contains(self.bot.target!) {
             self.bot.stateMachine.enter(ExtractingFromEntityState.self)
         }
     }
