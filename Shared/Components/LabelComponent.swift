@@ -26,7 +26,9 @@ class LabelComponent : GKComponent {
     }
 
     func show() {
-        parent.addChild(self.label)
+        if self.label.parent == nil {
+            parent.addChild(self.label)
+        }
     }
 
     func hide() {

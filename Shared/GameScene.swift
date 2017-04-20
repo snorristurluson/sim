@@ -21,25 +21,22 @@ let PROXIMITY = UInt32(0x8)
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
-    fileprivate var bots : Set<Bot> = []
+    fileprivate var bots = [Bot]()
     var entities = Set<GKEntity>()
     var entitiesQuadTree: GKQuadtree<GKEntity>?
     var navigationGraph: GKMeshGraph<GKGraphNode2D>?
     var activeCommandComponent: CommandComponent?
     var entitiesNearCursorRenderer: SKShapeNode?
     var buildCursor: SKShapeNode?
+    var spriteComponents = GKComponentSystem(componentClass: SpriteComponent.self)
+    var isDragging = false
+    var dragStartPosition = CGPoint.zero
 
     
     class func newGameScene() -> GameScene {
-        // Load 'GameScene.sks' as an SKScene.
-        guard let scene = SKScene(fileNamed: "GameScene") as? GameScene else {
-            print("Failed to load GameScene.sks")
-            abort()
-        }
-        
-        // Set the scale mode to scale to fit the window
+        let scene = GameScene(size: CGSize(width: 5000, height: 5000))
+
         scene.scaleMode = .aspectFill
-        
         scene.physicsWorld.gravity = CGVector.zero
         scene.physicsWorld.contactDelegate = scene
         
@@ -48,8 +45,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     func findRandomClearSpot(radius: Float) -> CGPoint {
         while true {
-            let x = Double(random.nextUniform() * Float(self.frame.width - 64) + Float(self.frame.minX + 32))
-            let y = Double(random.nextUniform() * Float(self.frame.height - 64) + Float(self.frame.minY + 32))
+            let x = Double(random.nextUniform() * Float(self.size.width - 64))
+            let y = Double(random.nextUniform() * Float(self.size.height - 64))
             let pos = CGPoint(x: x, y: y)
             let entitiesInTheWay = self.findEntitiesNear(pos: pos, radius: radius)
             if entitiesInTheWay.count == 0 {
@@ -59,7 +56,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func setUpScene() {
-        self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         let min = vector_float2(Float(self.frame.minX - 32), Float(self.frame.minY + 32))
         let max = vector_float2(Float(self.frame.maxX - 32), Float(self.frame.maxY + 32))
         self.entitiesQuadTree = GKQuadtree<GKEntity>(
@@ -79,13 +75,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.addEntity(entity: storage)
         }
 
-        for _ in 1...20 {
+        for ix in 1...50 {
             let pos = self.findRandomClearSpot(radius: 24)
-            let rock = Rock(pos: pos)
+            let name = "rock" + String(ix)
+            let rock = Rock(name: name, pos: pos)
             self.addEntity(entity: rock)
         }
 
-        for _ in 1...50 {
+        for _ in 1...150 {
             let pos = self.findRandomClearSpot(radius: 24)
             let tree = Tree(pos: pos)
             self.addEntity(entity: tree)
@@ -93,13 +90,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         self.navigationGraph?.triangulate()
 
-        for ix in 1...3 {
+        for ix in 1...10 {
             let pos = self.findRandomClearSpot(radius: 24)
             let name = "bot" + String(ix)
             let bot = Bot.init(name: name, pos: pos)
             self.addEntity(entity: bot)
-            self.bots.insert(bot)
+            self.bots.append(bot)
         }
+
+        let camera = SKCameraNode()
+        camera.xScale = 0.33
+        camera.yScale = 0.33
+        self.addChild(camera)
+        self.camera = camera
+
     }
     
     override func didMove(to view: SKView) {
@@ -112,6 +116,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func addEntity(entity: GKEntity) {
+        spriteComponents.addComponent(foundIn: entity)
         if let spriteComp = entity.component(ofType: SpriteComponent.self) {
             spriteComp.addToScene(scene: self)
             spriteComp.addToQuadTree(tree: self.entitiesQuadTree!)
@@ -202,6 +207,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for bot in self.bots {
             bot.update(deltaTime: dt)
         }
+
+        spriteComponents.update(deltaTime: dt)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -273,11 +280,51 @@ extension GameScene {
 #if os(OSX)
 // Mouse-based event handling
 extension GameScene {
+
     override public func mouseDown(with: NSEvent) {
         print("MouseDown in scene")
+        if with.clickCount == 2 {
+            let posInScene = self.convertPoint(fromView: with.locationInWindow)
+            if let cam = self.camera {
+                cam.position = posInScene
+            }
+            return
+        }
+
+        if with.clickCount == 3 {
+            let pos = self.bots[0].getPosition()
+            if let cam = self.camera {
+                cam.position = pos
+            }
+            return
+        }
         if let cmdComp = self.activeCommandComponent {
             cmdComp.hide()
             self.activeCommandComponent = nil
+        }
+        else {
+            print("Starting drag")
+            isDragging = true
+            dragStartPosition = self.convertPoint(fromView: with.locationInWindow)
+        }
+    }
+
+    override public func mouseUp(with: NSEvent) {
+        if self.isDragging {
+            isDragging = false
+            print("Ending dragging")
+        }
+    }
+
+    override public func mouseDragged(with: NSEvent) {
+        let posInScene = self.convertPoint(fromView: with.locationInWindow)
+        if self.isDragging {
+            let dx = dragStartPosition.x - posInScene.x
+            let dy = dragStartPosition.y - posInScene.y
+            if let cam = self.camera {
+                cam.position.x += dx
+                cam.position.y += dy
+            }
         }
     }
 
@@ -295,6 +342,47 @@ extension GameScene {
         }
 
         self.showEntitiesNear(pos: posInScene, radius: 64)
+    }
+
+    override public func keyDown(with: NSEvent) {
+        var scale = 0.0
+        if let chars = with.characters {
+            switch chars {
+            case "1":
+                scale = 0.1
+            case "2":
+                scale = 0.33
+            case "3":
+                scale = 1
+            default:
+                scale = 0.0
+            }
+        }
+        if scale > 0 {
+            if let cam = self.camera {
+                cam.xScale = CGFloat(scale)
+                cam.yScale = CGFloat(scale)
+            }
+        }
+    }
+
+    override public func scrollWheel(with: NSEvent) {
+        print("scroll")
+        if let cam = self.camera {
+            let delta = with.scrollingDeltaX
+            cam.xScale += delta
+            cam.yScale += delta
+
+            if cam.xScale < 0.1 {
+                cam.xScale = 0.1
+                cam.yScale = 0.1
+            }
+
+            if cam.xScale > 3.0 {
+                cam.xScale = 3.0
+                cam.yScale = 3.0
+            }
+        }
     }
 }
 #endif

@@ -61,7 +61,45 @@ class MovementComponent : GKComponent {
         self.pathRenderer?.zPosition = -1.0
         world?.addChild(self.pathRenderer!)
     }
-    
+
+    func getBotsToAvoid() -> [Bot] {
+        var result = [Bot]()
+        var bots = [Bot]()
+        if let proximityComp = self.entity!.component(ofType: ProximityComponent.self) {
+            for candidate in proximityComp.proximity {
+                if let bot = candidate as? Bot {
+                    bots.append(bot)
+                }
+            }
+        }
+        let myVelocity = (self.sprite.physicsBody?.velocity)!
+        for each in bots {
+            let otherVelocity = each.getVelocity()
+            let dot = myVelocity.dx * otherVelocity.dx + myVelocity.dy * otherVelocity.dy
+            if dot < 0.0 {
+                result.append(each)
+            }
+        }
+        return result
+    }
+
+    func getAvoidanceVectorForBot(bot: Bot) -> CGVector {
+        let myDir = CGVectorNormalize(v: (self.sprite.physicsBody?.velocity)!)
+
+        let myPosition = self.sprite.position
+        let otherPosition = bot.getPosition()
+        let v = CGVector(dx: CGFloat(otherPosition.x) - myPosition.x, dy: CGFloat(otherPosition.y) - myPosition.y)
+        let vn = CGVectorNormalize(v: v)
+
+        let a = atan2(vn.dy, vn.dx) - atan2(myDir.dy, myDir.dx)
+        if a > -0.05 {
+            return CGVector(dx: vn.dy, dy: -vn.dx)
+        }
+        else {
+            return CGVector(dx: -vn.dy, dy: vn.dx)
+        }
+    }
+
     override func update(deltaTime seconds: TimeInterval) {
         let currentVelocity = (self.sprite.physicsBody?.velocity)!
         let currentHeading = atan2(currentVelocity.dy, currentVelocity.dx)
@@ -79,8 +117,18 @@ class MovementComponent : GKComponent {
                 v = CGVector.init(dx: CGFloat(targetPosition.x) - currentPosition.x, dy: CGFloat(targetPosition.y) - currentPosition.y)
             }
         }
-        let vn = CGVectorNormalize(v: v)
-        let desiredVelocity = CGVector.init(dx: vn.dx * self.speed, dy: vn.dy * self.speed)
+        var vn = CGVectorNormalize(v: v)
+        let otherBots = self.getBotsToAvoid()
+        for each in otherBots {
+            let avoid = self.getAvoidanceVectorForBot(bot: each)
+            vn.dx += avoid.dx
+            vn.dy += avoid.dy
+        }
+
+        // Renormalize, effectively averaging avoidance vectors with desired heading
+        vn = CGVectorNormalize(v: vn)
+
+        let desiredVelocity = CGVector(dx: vn.dx * self.speed, dy: vn.dy * self.speed)
 
         self.sprite.zRotation = currentHeading
 

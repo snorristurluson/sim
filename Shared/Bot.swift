@@ -20,6 +20,7 @@ class Bot : GKEntity {
     var stateMachine: GKStateMachine!
     
     var cargo = [Resource]()
+    var camera: SKCameraNode?
     
     init(name: String, pos: CGPoint) {
         self.name = name
@@ -57,6 +58,12 @@ class Bot : GKEntity {
     func getPosition()-> CGPoint {
         let comp = component(ofType: SpriteComponent.self)
         return (comp?.spriteNode.position)!
+    }
+
+    func getVelocity() -> CGVector {
+        let comp = component(ofType: SpriteComponent.self)
+        let currentVelocity = (comp?.spriteNode.physicsBody?.velocity)!
+        return currentVelocity
     }
     
     func findClosest(resource: String) -> GKEntity? {
@@ -172,4 +179,14 @@ class Bot : GKEntity {
         }
     }
 
+    func getCamera() -> SKCameraNode {
+        if let cam = self.camera {
+            return cam
+        }
+        self.camera = SKCameraNode()
+        if let spriteComp = component(ofType: SpriteComponent.self) {
+            spriteComp.spriteNode.addChild(self.camera!)
+        }
+        return self.camera!
+    }
 }

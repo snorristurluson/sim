@@ -10,9 +10,9 @@ import Foundation
 import GameplayKit
 
 class Rock : GKEntity {
-    init(pos: CGPoint) {
+    init(name: String, pos: CGPoint) {
         super.init()
-        let comp = SpriteComponent(name: "rock", color: .red, size: CGSize.init(width: 32, height: 32), category: RESOURCE)
+        let comp = SpriteComponent(name: name, color: .red, size: CGSize.init(width: 32, height: 32), category: RESOURCE)
         comp.spriteNode.position = pos
         comp.spriteNode.physicsBody?.isDynamic = false
         addComponent(comp)
