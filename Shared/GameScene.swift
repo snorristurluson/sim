@@ -34,7 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     
     class func newGameScene() -> GameScene {
-        let scene = GameScene(size: CGSize(width: 5000, height: 5000))
+        let scene = GameScene(size: CGSize(width: 5000, height: 1000))
 
         scene.scaleMode = .aspectFill
         scene.physicsWorld.gravity = CGVector.zero
@@ -69,8 +69,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         )
         self.navigationGraph?.triangulationMode = [.vertices, .centers, .edgeMidpoints]
 
+        var cameraFocus = CGPoint.zero
         for _ in 1...1 {
             let pos = self.findRandomClearSpot(radius: 32)
+            cameraFocus = pos
             let storage = Storage.init(pos: pos)
             self.addEntity(entity: storage)
         }
@@ -99,11 +101,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         let camera = SKCameraNode()
-        camera.xScale = 0.33
-        camera.yScale = 0.33
         self.addChild(camera)
+        camera.position = cameraFocus
         self.camera = camera
-
     }
     
     override func didMove(to view: SKView) {
@@ -236,6 +236,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if bot_proximity != nil && other != nil {
             bot_proximity?.addProximity(other: other!)
+            if let other_bot = other as? Bot {
+                other_bot.addProximity(other: bot_proximity!)
+            }
         }
     }
 
@@ -264,6 +267,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         if bot_proximity != nil && other != nil {
             bot_proximity?.removeProximity(other: other!)
+            if let other_bot = other as? Bot {
+                other_bot.removeProximity(other: bot_proximity!)
+            }
         }
     }
 }
@@ -367,9 +373,8 @@ extension GameScene {
     }
 
     override public func scrollWheel(with: NSEvent) {
-        print("scroll")
         if let cam = self.camera {
-            let delta = with.scrollingDeltaX
+            let delta = with.scrollingDeltaX * 0.02
             cam.xScale += delta
             cam.yScale += delta
 
@@ -386,20 +391,3 @@ extension GameScene {
     }
 }
 #endif
-
-func CGPointDistanceSquared(from: CGPoint, to: CGPoint) -> CGFloat {
-    return (from.x - to.x) * (from.x - to.x) + (from.y - to.y) * (from.y - to.y)
-}
-
-func CGPointDistance(from: CGPoint, to: CGPoint) -> CGFloat {
-    return sqrt(CGPointDistanceSquared(from: from, to: to))
-}
-
-func CGVectorLength(v: CGVector) -> CGFloat {
-    return sqrt(v.dx*v.dx + v.dy*v.dy)
-}
-
-func CGVectorNormalize(v: CGVector) -> CGVector {
-    let len = CGVectorLength(v: v)
-    return CGVector.init(dx: v.dx / len, dy: v.dy / len)
-}
